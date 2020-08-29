@@ -1,0 +1,9 @@
+nav .navbar-nav li a {
+  color: white !important;
+}
+
+svg {
+  width: 80px;
+  height: 30px;
+  fill: white;
+}

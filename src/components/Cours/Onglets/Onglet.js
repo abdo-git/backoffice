@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import CreateChap from "../Chapitres/createChap";
 
 const Onglet = (props) => {
   const [nomOnglet, setNomOnglet] = useState("");
+  const [ajoutChap, setAjoutChap] = useState(false);
   console.log(props);
   return (
-    <div className="card border-secondary mb-3" key={props.id}>
+    <div key={props.id} className="card border-secondary mb-3">
       <h5 className="card-header">Onglet {props.id}</h5>
       <div className="card-body">
         <form onSubmit={(e) => e.preventDefault()}>
@@ -15,14 +17,16 @@ const Onglet = (props) => {
               className="form-control"
               id="nomOnglet"
               placeholder="nom onlget"
-              onChange={(e)=>{
-                setNomOnglet(e.target.value)}}
+              onChange={(e) => {
+                setNomOnglet(e.target.value);
+              }}
             />
           </div>
           <button
             type="submit"
             className="btn btn-primary"
-            onClick={()=>console.log(nomOnglet)}
+            onClick={() => {setAjoutChap(true)
+            console.log(ajoutChap)}}
           >
             Ajouter Chapitre
           </button>
@@ -31,6 +35,7 @@ const Onglet = (props) => {
           </button>
         </form>
       </div>
+      {ajoutChap ? <CreateChap id={props.id}/> : null}
     </div>
   );
 };

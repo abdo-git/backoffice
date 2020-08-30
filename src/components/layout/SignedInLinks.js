@@ -5,17 +5,17 @@ const SignedInLinks = () => {
   return (
     <ul className="navbar-nav">
       <li className="nav-item">
-        <NavLink to="/ListCours" className="nav-link">
+        <NavLink to="/listcours" className="nav-link">
           Mes cours
         </NavLink>
       </li>
       <li className="nav-item">
-        <NavLink to="/Satistiques" className="nav-link">
+        <NavLink to="/satistiques" className="nav-link">
           Statistiques
         </NavLink>
       </li>
       <li className="nav-item">
-        <NavLink to="/Tags" className="nav-link">
+        <NavLink to="/tags" className="nav-link">
           Tags
         </NavLink>
       </li>

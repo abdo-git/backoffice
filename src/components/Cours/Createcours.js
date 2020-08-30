@@ -20,13 +20,13 @@ class Createcours extends Component {
     console.log(this.state);
   };
 
-  showOnglets = (nbrOnglet)=>{
-    let onglets = []
-    for (let i = 0; i < nbrOnglet; i++) {
-      onglets.push(<Onglet id={i+1}/>)
+  showOnglets = (nbrOnglet) => {
+    let onglets = [];
+    for (let i = 1; i <= nbrOnglet; i++) {
+      onglets.push(<Onglet id={i} />);
     }
     return onglets;
-  }
+  };
 
   render() {
     return (
@@ -61,9 +61,9 @@ class Createcours extends Component {
             </form>
           </div>
         </div>
-        {
-          this.state.buttonClicked ? this.showOnglets(this.state.nbrOnglet):(null)
-        }
+        {this.state.buttonClicked
+          ? this.showOnglets(this.state.nbrOnglet)
+          : null}
       </div>
     );
   }

@@ -10,7 +10,7 @@ class createChap extends Component {
     titre: "",
     contenu: "",
     volumeHoraire: "",
-    niveau: "",
+    niveau: "1",
     idOnget: this.props.id,
   };
 
@@ -33,7 +33,7 @@ class createChap extends Component {
   }
   handleSubmit = (e)=>{
     e.preventDefault()
-    console.log(this.state)
+    //console.log(this.state)
     this.props.CreateChap(this.state)
   }
   render() {
@@ -67,7 +67,7 @@ class createChap extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="niveau">Niveau</label>
-              <select className="form-control" id="niveau" placeholder="niveau" onClick={this.handleChange}>
+              <select value={this.state.niveau} className="form-control" id="niveau" placeholder="niveau" onChange={this.handleChange}>
                 {this.option()}
               </select>
             </div>
@@ -86,10 +86,10 @@ class createChap extends Component {
                 });
               }}
               onBlur={(event, editor) => {
-                console.log("Blur.", editor);
+                //console.log("Blur.", editor);
               }}
               onFocus={(event, editor) => {
-                console.log("Focus.", editor);
+                //console.log("Focus.", editor);
               }}
             />
           </form>

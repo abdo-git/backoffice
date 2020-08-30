@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Onglet from "./Onglets/Onglet";
+import {CreateCours} from "../../store/actions/coursAction";
 
 class Createcours extends Component {
   state = {
@@ -17,7 +19,7 @@ class Createcours extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ buttonClicked: true });
-    console.log(this.state);
+    this.props.CreateCours(this.state);
   };
 
   showOnglets = (nbrOnglet) => {
@@ -69,4 +71,10 @@ class Createcours extends Component {
   }
 }
 
-export default Createcours;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    CreateCours: (chap) => dispatch(CreateCours(chap)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Createcours);

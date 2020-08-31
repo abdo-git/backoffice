@@ -1,7 +1,8 @@
 const initState = {
-  onglet: [{
+  onglet: [
+    {
       idOnglet: "",
-      nom: ""
+      nom: "",
     },
   ],
 };

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import  NavBar  from "./components/layout/NavBar";
 import Createcours from "./components/Cours/Createcours";
 import  createChap  from "./components/Cours/Chapitres/createChap.js";
+import addTag from './components/Tags/addTag'
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <Switch>
             <Route exact path='/' component={Createcours}/>
             <Route path='/createChap' component={createChap}/>
+            <Route path='/tags' component={addTag}/>
           </Switch>
         </div>
       </BrowserRouter>

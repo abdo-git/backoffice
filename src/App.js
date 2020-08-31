@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import {BrowserRouter} from 'react-router-dom';
-import {NavBar} from './components'
+import {BrowserRouter, Route,Switch} from 'react-router-dom';
+import {NavBar,Tags} from './components'
 
 class App extends  Component {
   render(){
@@ -8,6 +8,9 @@ class App extends  Component {
     <BrowserRouter>
     <div className="App">
      <NavBar/>
+     <Switch>
+       <Route path="/tags" component={Tags}/>
+     </Switch>
     </div>
     </BrowserRouter>
   )

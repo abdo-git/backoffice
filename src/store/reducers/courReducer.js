@@ -2,7 +2,8 @@ const initState = {
     cour:[{
         nom:'',
         nbrOnglet:'',
-        idProf: ''
+        idProf: '',
+        date:''
     }]
 };
 const courReducer = (state = initState, action) => {

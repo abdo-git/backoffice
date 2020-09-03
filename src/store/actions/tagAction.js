@@ -7,20 +7,20 @@ export const AddTag = (tag) => {
       .get()
       .then((snapshot) => {
         if (!snapshot.empty) {
-            alert('le Tag existe deja !')
-        }else{
-            firestore
-              .collection("tags")
-              .add({
-                ...tag,
-                idProf: "1",
-              })
-              .then(() => {
-                dispatch({ type: "ADD_TAG", tag });
-              })
-              .catch((err) => {
-                dispatch({ type: "ERROR", err });
-              });
+          alert("le Tag existe deja !");
+        } else {
+          firestore
+            .collection("tags")
+            .add({
+              ...tag,
+              idProf: "1",
+            })
+            .then(() => {
+              dispatch({ type: "ADD_TAG", tag });
+            })
+            .catch((err) => {
+              dispatch({ type: "ERROR", err });
+            });
         }
       });
   };

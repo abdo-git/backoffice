@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux'
+import {compose } from 'redux'
 import CreateChap from "../Chapitres/createChap";
 import {CreateOnglet} from '../../../store/actions/ongletAction'
+import {firestoreConnect} from 'react-redux-firebase'
 
 class Onglet extends Component {
   state = {
@@ -13,7 +15,7 @@ class Onglet extends Component {
   handleChange = (e) =>{
     this.setState({
       idOnglet: this.props.id,
-      nomOnglet: e.target.value
+      nomOnglet: e.target.value,
     })
   }
 
@@ -22,7 +24,7 @@ class Onglet extends Component {
       ...this.state,
       ajoutChap: true
     })
-    this.props.CreateOnglet(this.state)
+    this.props.CreateOnglet(this.state, this.props.nomCours)
   }
   render(){
     return (
@@ -58,10 +60,20 @@ class Onglet extends Component {
   }
 };
 
+const mapStateToProps = (state) => {
+return {
+    onglet: state.firestore.ordered.onglet,
+  };
+};
 const mapDispatchToProps = (dispatch)=>{
   return {
-    CreateOnglet: (onglet) => dispatch(CreateOnglet(onglet))
+    CreateOnglet: (onglet, nomCours) => dispatch(CreateOnglet(onglet, nomCours))
   }
 }
 
-export default connect(null,mapDispatchToProps)(Onglet);
+export default compose(
+  firestoreConnect([{
+    collection: "onglet"
+  }]),
+  connect(mapStateToProps,mapDispatchToProps)
+  )(Onglet);

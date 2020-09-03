@@ -4,6 +4,7 @@ const initState = {
         contenu:'',
         volumeHoraire:'',
         niveau:"",
+        tags:[],
         idOnget:''
     }]
 };
@@ -11,9 +12,8 @@ const initState = {
 const chapReducer = (state = initState, action) => {
   switch (action.type) {
     case 'ADD_CHAP':
-      console.log(action.chap)
+      console.log('chapitre ajoute',action.chap)
       break;
-  
     default:
       break;
   }

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Onglet from "./Onglets/Onglet";
-import {CreateCours} from "../../store/actions/coursAction";
+import { CreateCours } from "../../store/actions/coursAction";
 
 class Createcours extends Component {
   state = {
     nomCours: "",
     nbrOnglet: "",
+    date: "",
     buttonClicked: false,
   };
 
@@ -18,14 +19,14 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ buttonClicked: true });
+    this.setState({  buttonClicked: true });
     this.props.CreateCours(this.state);
   };
 
   showOnglets = (nbrOnglet) => {
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
-      onglets.push(<Onglet id={i} />);
+      onglets.push(<Onglet nomCours={this.state.nomCours} id={i} />);
     }
     return onglets;
   };
@@ -73,7 +74,7 @@ class Createcours extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateCours: (chap) => dispatch(CreateCours(chap)),
+    CreateCours: (cours) => dispatch(CreateCours(cours)),
   };
 };
 

@@ -8,14 +8,14 @@ import { CreateChap } from "../../../store/actions/chapAction";
 import { firestoreConnect } from "react-redux-firebase";
 
 class createChap extends Component {
-  
   state = {
     titre: "",
     contenu: "",
     volumeHoraire: "",
     niveau: "1",
-    tags:[],
+    tags: [],
     idOnget: this.props.id,
+    show: this.props.show,
   };
 
   option() {
@@ -30,12 +30,18 @@ class createChap extends Component {
     return options;
   }
 
-  selectTag = (e)=>{
+  selectTag = (e) => {
     this.setState({
       ...this.state,
-      tags:[...this.state.tags, e.target.value]
-    })
-  }
+      tags: [...this.state.tags, e.target.value],
+    });
+  };
+  handleClose = () => {
+    this.setState({
+      ...this.state,
+      show: false,
+    });
+  };
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -43,12 +49,12 @@ class createChap extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    //console.log(this.state)
+    this.handleClose();
     this.props.CreateChap(this.state);
   };
   render() {
     return (
-      <Modal.Dialog>
+      <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Créer votre chapitre ici</Modal.Title>
         </Modal.Header>
@@ -139,7 +145,7 @@ class createChap extends Component {
             Créer
           </button>
         </Modal.Footer>
-      </Modal.Dialog>
+      </Modal>
     );
   }
 }

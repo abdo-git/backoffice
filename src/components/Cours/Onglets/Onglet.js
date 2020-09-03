@@ -9,7 +9,7 @@ class Onglet extends Component {
   state = {
     idOnglet:"",
     nomOnglet:"",
-    ajoutChap: false
+    showModal: false
   }
 
   handleChange = (e) =>{
@@ -22,13 +22,13 @@ class Onglet extends Component {
   handleSubmit = (e) =>{
     this.setState({
       ...this.state,
-      ajoutChap: true
+      showModal: true
     })
     this.props.CreateOnglet(this.state, this.props.nomCours)
   }
   render(){
     return (
-      <div key={this.props.id} className="card border-secondary mb-3">
+      <div key={this.props.key} className="card border-secondary mb-3">
         <h5 className="card-header">Onglet {this.props.id}</h5>
         <div className="card-body">
           <form onSubmit={(e) => e.preventDefault()}>
@@ -54,7 +54,7 @@ class Onglet extends Component {
             </button>
           </form>
         </div>
-        {this.state.ajoutChap ? <CreateChap id={this.props.id}/> : null}
+        {this.state.showModal ? <CreateChap show={this.state.showModal} id={this.props.id}/> : null}
       </div>
     );
   }

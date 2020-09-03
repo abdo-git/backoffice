@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import  NavBar  from "./components/layout/NavBar";
+import NavBar from "./components/layout/NavBar";
 import Createcours from "./components/Cours/Createcours";
-import  createChap  from "./components/Cours/Chapitres/createChap.js";
-import addTag from './components/Tags/addTag'
+import createChap from "./components/Cours/Chapitres/createChap.js";
+import addTag from "./components/Tags/addTag";
+import signedIn from "./components/auth/SignedIn";
 
 class App extends Component {
   render() {
@@ -12,9 +13,10 @@ class App extends Component {
         <div className="App">
           <NavBar />
           <Switch>
-            <Route exact path='/' component={Createcours}/>
-            <Route path='/createChap' component={createChap}/>
-            <Route path='/tags' component={addTag}/>
+            <Route exact path="/" component={Createcours} />
+            <Route path="/signin" component={signedIn} />
+            <Route path="/createChap" component={createChap} />
+            <Route path="/tags" component={addTag} />
           </Switch>
         </div>
       </BrowserRouter>

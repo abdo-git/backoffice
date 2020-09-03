@@ -19,14 +19,14 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({  buttonClicked: true });
+    this.setState({ buttonClicked: true });
     this.props.CreateCours(this.state);
   };
 
   showOnglets = (nbrOnglet) => {
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
-      onglets.push(<Onglet nomCours={this.state.nomCours} id={i} />);
+      onglets.push(<Onglet key={i} nomCours={this.state.nomCours} />);
     }
     return onglets;
   };

@@ -7,7 +7,6 @@ class Createcours extends Component {
   state = {
     nomCours: "",
     nbrOnglet: "",
-    date: "",
     buttonClicked: false,
   };
 
@@ -19,6 +18,10 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    if(this.state.nomCours === '' || this.state.nbrOnglet===''){
+      alert('champ vide !')
+      return null;
+    }
     this.setState({ buttonClicked: true });
     this.props.CreateCours(this.state);
   };
@@ -26,7 +29,7 @@ class Createcours extends Component {
   showOnglets = (nbrOnglet) => {
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
-      onglets.push(<Onglet key={i} nomCours={this.state.nomCours} />);
+      onglets.push(<Onglet key={i} nomCours={this.state.nomCours} id={i}/>);
     }
     return onglets;
   };

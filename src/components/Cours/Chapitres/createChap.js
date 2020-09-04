@@ -49,9 +49,14 @@ class createChap extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    if(this.state.titre==='' || this.state.volumeHoraire==='' || this.state.contenu===''){
+      alert('champ vide')
+      return null
+    }
     this.handleClose();
     this.props.CreateChap(this.state);
   };
+  
   render() {
     return (
       <Modal show={this.state.show} onHide={this.handleClose}>

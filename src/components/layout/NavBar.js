@@ -5,7 +5,10 @@ import SignedOutLinks from "./SignedOutLinks";
 import { FaBookMedical } from "react-icons/fa";
 import { connect } from "react-redux";
 
-const NavBar = () => {
+const NavBar = (props) => {
+  const { auth } = props;
+
+  const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-dark">
       <Link to="/" className="navbar-brand">
@@ -22,8 +25,7 @@ const NavBar = () => {
         className="collapse navbar-collapse justify-content-end"
         id="navbarMenu"
       >
-        <SignedInLinks />
-        <SignedOutLinks />
+        {links}
       </div>
     </nav>
   );
@@ -31,6 +33,8 @@ const NavBar = () => {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  return {};
+  return {
+    auth: state.firebase.auth,
+  };
 };
 export default connect(mapStateToProps)(NavBar);

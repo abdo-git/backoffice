@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { AddTag } from "../../store/actions/tagAction";
 import { firestoreConnect } from "react-redux-firebase";
+import { Redirect } from "react-router-dom";
 
 class addTag extends Component {
   state = {
@@ -20,7 +21,8 @@ class addTag extends Component {
   };
 
   render() {
-    console.log(this.props);
+    if (!this.props.auth.uid) return <Redirect to="/signin" />;
+
     return (
       <div className="container">
         <div className="card border-secondary mb-3">
@@ -72,6 +74,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     tags: state.firestore.ordered.tags,
+    auth: state.firebase.auth,
   };
 };
 const mapDispatchToProps = (dispatch) => {

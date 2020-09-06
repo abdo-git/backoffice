@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import NavBar from "./components/layout/NavBar";
 import Createcours from "./components/Cours/Createcours";
-import createChap from "./components/Cours/Chapitres/createChap.js";
 import addTag from "./components/Tags/addTag";
 import signedIn from "./components/auth/SignedIn";
-import signedOut from "./components/auth/SignedOut";
+import signedUp from "./components/auth/SignedUp";
 
 
 class App extends Component {
@@ -17,8 +16,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Createcours} />
             <Route path="/signin" component={signedIn} />
-            <Route path="/signup" component={signedOut} />
-            <Route path="/createChap" component={createChap} />
+            <Route path="/signup" component={signedUp} />
             <Route path="/tags" component={addTag} />
           </Switch>
         </div>

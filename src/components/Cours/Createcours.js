@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Onglet from "./Onglets/Onglet";
 import { CreateCours } from "../../store/actions/coursAction";
-
+import { Redirect } from "react-router-dom";
 class Createcours extends Component {
   state = {
     nomCours: "",
@@ -18,8 +18,8 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.nomCours === '' || this.state.nbrOnglet===''){
-      alert('champ vide !')
+    if (this.state.nomCours === "" || this.state.nbrOnglet === "") {
+      alert("champ vide !");
       return null;
     }
     this.setState({ buttonClicked: true });
@@ -29,12 +29,14 @@ class Createcours extends Component {
   showOnglets = (nbrOnglet) => {
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
-      onglets.push(<Onglet key={i} nomCours={this.state.nomCours} id={i}/>);
+      onglets.push(<Onglet key={i} nomCours={this.state.nomCours} id={i} />);
     }
     return onglets;
   };
 
   render() {
+    if (!this.props.auth.uid) return <Redirect to="/signin" />;
+
     return (
       <div className="container">
         <div className="card border-secondary mb-3">
@@ -75,10 +77,15 @@ class Createcours extends Component {
   }
 }
 
+const mapPropsToState = (state) => {
+  return {
+    auth: state.firebase.auth,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     CreateCours: (cours) => dispatch(CreateCours(cours)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(Createcours);
+export default connect(mapPropsToState, mapDispatchToProps)(Createcours);

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { AddTag } from "../../store/actions/tagAction";
 import { firestoreConnect } from "react-redux-firebase";
+import { AddTag } from "../../store/actions/tagAction";
 import { Redirect } from "react-router-dom";
 
 class addTag extends Component {

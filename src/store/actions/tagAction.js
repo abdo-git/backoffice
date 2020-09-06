@@ -1,5 +1,6 @@
 export const AddTag = (tag) => {
   return (dispatch, getState, { getFirebase }) => {
+    const idProf = getState().firebase.auth.uid
     const firestore = getFirebase().firestore();
     firestore
       .collection("tags")
@@ -13,7 +14,7 @@ export const AddTag = (tag) => {
             .collection("tags")
             .add({
               ...tag,
-              idProf: "1",
+              idProf: idProf,
             })
             .then(() => {
               dispatch({ type: "ADD_TAG", tag });

@@ -17,7 +17,7 @@ svg {
 .divider-text span {
   padding: 7px;
   font-size: 12px;
-  position: relative;   
+  position: relative;
   z-index: 2;
 }
 .divider-text:after {
@@ -31,10 +31,10 @@ svg {
 }
 
 .btn-facebook {
-  background-color: #405D9D;
+  background-color: #405d9d;
   color: #fff;
 }
 .btn-twitter {
-  background-color: #42AEEC;
+  background-color: #42aeec;
   color: #fff;
 }

@@ -1,6 +1,7 @@
 export const CreateCours = (cours) => {
   return (dispatch, getState, { getFirebase }) => {
-    console.log(cours);
+    console.log(getState(), getFirebase())
+    const idProf = getState().firebase.auth.uid
     const firestore = getFirebase().firestore();
     firestore
       .collection("cours")
@@ -14,7 +15,7 @@ export const CreateCours = (cours) => {
             .collection("cours")
             .add({
               ...cours,
-              idProf: "1",
+              idProf: idProf,
               date: new Date(),
             })
             .then(() => {

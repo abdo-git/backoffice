@@ -5,6 +5,7 @@ import Createcours from "./components/Cours/Createcours";
 import addTag from "./components/Tags/addTag";
 import signedIn from "./components/auth/SignedIn";
 import signedUp from "./components/auth/SignedUp";
+import ListCours from './components/Cours/ListCours'
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route exact path="/" component={Createcours} />
             <Route path="/signin" component={signedIn} />
             <Route path="/signup" component={signedUp} />
+            <Route path="/listcours" component={ListCours} />
             <Route path="/tags" component={addTag} />
           </Switch>
         </div>

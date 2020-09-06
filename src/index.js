@@ -20,14 +20,17 @@ const store = createStore(
 );
 const rrfProps = {
   firebase,
-  config: {},
+  config: {
+    userProfile: "professeur",
+    useFirestoreForProfile: true,
+  },
   dispatch: store.dispatch,
   createFirestoreInstance,
 };
 
 function AuthIsLoaded({ children }) {
   const auth = useSelector((state) => state.firebase.auth);
-  if (!isLoaded(auth)) return <div>splash screen...</div>;
+  if (!isLoaded(auth)) return <div>Loading...</div>;
   return children;
 }
 

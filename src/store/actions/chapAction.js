@@ -1,9 +1,7 @@
-const onglet = {id:''}
+
 export const CreateChap = (chap) => {
   return (dispatch, getState, { getFirebase }) => {
-    console.log(chap)
     const firestore = getFirebase().firestore();
-    
     firestore
       .collection("chapitre")
       .add({
@@ -17,5 +15,3 @@ export const CreateChap = (chap) => {
       });
   };
 };
-
-export default onglet

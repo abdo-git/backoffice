@@ -5,7 +5,8 @@ const initState = {
         volumeHoraire:'',
         niveau:"",
         tags:[],
-        idOnget:''
+        idOnget:'',
+        idCours:''
     }]
 };
 

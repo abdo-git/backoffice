@@ -75,7 +75,7 @@ class Onglet extends Component {
           </form>
         </div>
         {this.state.showModal ? (
-          <CreateChap show={this.state.showModal} id={this.props.id} key={this.props.id} />
+          <CreateChap show={this.state.showModal} id={this.props.id} key={this.props.id} nomCours={this.props.nomCours}/>
         ) : null}
       </div>
     );

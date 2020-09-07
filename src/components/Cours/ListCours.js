@@ -3,8 +3,9 @@ import moment from "moment";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
+import {generateFile} from '../../store/actions/fileAction'
 
-const ListCours = ({ cours, auth }) => {
+const ListCours = ({ cours, auth, generateFile }) => {
   const [search, setSearch] = useState("");
   const coursFilter = cours && cours.filter((cour) => cour.idProf === auth.uid);
   let filteredCours =
@@ -43,12 +44,14 @@ const ListCours = ({ cours, auth }) => {
                       <td>{cours.nbrOnglet}</td>
                       <td>{moment(cours.date.toDate()).calendar()}</td>
                       <td>
-                      <button type="button" className="btn btn-link">Details</button>      
+                        <button type="button" className="btn btn-link">
+                          Details
+                        </button>
                       </td>
                       <td>
-                        <button className="btn btn-primary btn-sm">
+                        <button className="btn btn-primary btn-sm" onClick={()=>generateFile(cours)}>
                           <i className="fa fa-download" aria-hidden="true"></i>
-                                Download
+                          Download
                         </button>
                         <button type="button" className="btn btn-danger btn-sm">
                           <i className="fa fa-trash" aria-hidden="true"></i>
@@ -74,7 +77,12 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = (dispatch)=>{
+  return {
+    generateFile: (cours) => dispatch(generateFile(cours))
+  }
+}
 export default compose(
   firestoreConnect([{ collection: "cours" }]),
-  connect(mapStateToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(ListCours);

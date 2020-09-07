@@ -13,6 +13,17 @@ const NavBar = (props) => {
       <Link to="/" className="navbar-brand">
         Home
       </Link>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarMenu"
+        aria-controls="navbarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
       <div
         className="collapse navbar-collapse justify-content-end"
         id="navbarMenu"

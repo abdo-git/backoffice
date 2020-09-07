@@ -14,7 +14,7 @@ class createChap extends Component {
     volumeHoraire: "",
     niveau: "1",
     tags: [],
-    idOnget: this.props.id,
+    idOnglet: this.props.id,
     show: this.props.show,
   };
 
@@ -33,7 +33,7 @@ class createChap extends Component {
   selectTag = (e) => {
     this.setState({
       ...this.state,
-      tags: [...this.state.tags, e.target.value],
+      tags: [...this.state.tags, e.target.value, e.target.id],
     });
   };
   handleClose = () => {
@@ -54,7 +54,7 @@ class createChap extends Component {
       return null
     }
     this.handleClose();
-    this.props.CreateChap(this.state);
+    this.props.CreateChap(this.state, this.props.nomCours);
   };
   
   render() {
@@ -102,9 +102,9 @@ class createChap extends Component {
               {this.props.tags &&
                 this.props.tags.map((tag) => {
                   return (
-                    <div>
+                    <div key={tag.id}>
                       <input
-                        key={tag.id}
+                  
                         id={tag.id}
                         name={tag.libelle}
                         value={tag.libelle}
@@ -119,7 +119,7 @@ class createChap extends Component {
 
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor 5!</p>"
+              data=""
               onInit={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
@@ -163,7 +163,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateChap: (chap) => dispatch(CreateChap(chap)),
+    CreateChap: (chap,nomCours) => dispatch(CreateChap(chap,nomCours)),
   };
 };
 export default compose(

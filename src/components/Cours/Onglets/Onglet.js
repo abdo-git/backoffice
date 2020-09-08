@@ -15,21 +15,30 @@ class Onglet extends Component {
 
   handleChange = (e) => {
     this.setState({
+      ...this.state,
       idOnglet: this.props.id,
       nomOnglet: e.target.value,
     });
   };
-  showModal = (e) =>{
-    e.preventDefault()
+  showModal = (e) => {
+    e.preventDefault();
     this.setState({
-      showModal: true
-    })
-  }
+      ...this.state,
+      showModal: true,
+    });
+  };
+  closeModal = () => {
+    this.setState({
+      ...this.state,
+      showModal: false,
+    });
+  };
+  
   handleSubmit = (e) => {
-    e.preventDefault()
-    if(this.state.nomOnglet===''){
-      alert('champ vide !')
-      return null
+    e.preventDefault();
+    if (this.state.nomOnglet === "") {
+      alert("champ vide !");
+      return null;
     }
     this.setState({
       ...this.state,
@@ -75,7 +84,13 @@ class Onglet extends Component {
           </form>
         </div>
         {this.state.showModal ? (
-          <CreateChap show={this.state.showModal} id={this.props.id} key={this.props.id} nomCours={this.props.nomCours}/>
+          <CreateChap
+            closeModal={this.closeModal}
+            show={this.state.showModal}
+            id={this.props.id}
+            key={this.props.id}
+            nomCours={this.props.nomCours}
+          />
         ) : null}
       </div>
     );

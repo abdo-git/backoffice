@@ -15,7 +15,6 @@ class createChap extends Component {
     niveau: "1",
     tags: [],
     idOnglet: this.props.id,
-    show: this.props.show,
   };
 
   option() {
@@ -31,35 +30,70 @@ class createChap extends Component {
   }
 
   selectTag = (e) => {
-    this.setState({
-      ...this.state,
-      tags: [...this.state.tags, e.target.value, e.target.id],
-    });
+    let listTag = this.state.tags;
+    let check = e.target.checked;
+    let checkedTag = e.target.value
+    let id = e.target.id
+    if (check) {
+      this.setState({
+        ...this.state,
+        tags: [...this.state.tags, {libelle:checkedTag,id:id}],
+      });
+    } else {
+      var index = listTag.findIndex((tag)=>tag.libelle === checkedTag)
+      if (index > -1) {
+        listTag.splice(index, 1);
+        this.setState({
+          ...this.state,
+          tags: listTag,
+        });
+      }
+    }
   };
-  handleClose = () => {
-    this.setState({
-      ...this.state,
-      show: false,
-    });
-  };
+
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
     });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
-    if(this.state.titre==='' || this.state.volumeHoraire==='' || this.state.contenu===''){
-      alert('champ vide')
-      return null
+    if (
+      this.state.titre === "" ||
+      this.state.volumeHoraire === "" ||
+      this.state.contenu === ""
+    ) {
+      alert("champ vide");
+      return null;
     }
-    this.handleClose();
     this.props.CreateChap(this.state, this.props.nomCours);
+    this.props.closeModal()
   };
-  
+
+  generateCheckBox = ({ tags }) => {
+    let tagsRendered = [];
+    tags &&
+      tags.map((tag) =>
+        tagsRendered.push(
+          <div key={tag.id}>
+            <input
+              id={tag.id}
+              name={tag.libelle}
+              value={tag.libelle}
+              type="checkbox"
+              onChange={this.selectTag}
+            />
+            <label htmlFor={tag.id}>{tag.libelle}</label>
+          </div>
+        )
+      );
+    return tagsRendered;
+  };
+
   render() {
     return (
-      <Modal show={this.state.show} onHide={this.handleClose}>
+      <Modal show={this.props.show} onHide={this.props.closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Créer votre chapitre ici</Modal.Title>
         </Modal.Header>
@@ -99,22 +133,7 @@ class createChap extends Component {
               </select>
             </div>
             <div className="form-group">
-              {this.props.tags &&
-                this.props.tags.map((tag) => {
-                  return (
-                    <div key={tag.id}>
-                      <input
-                  
-                        id={tag.id}
-                        name={tag.libelle}
-                        value={tag.libelle}
-                        type="checkbox"
-                        onClick={this.selectTag}
-                      />
-                      <label htmlFor={tag.id}>{tag.libelle}</label>
-                    </div>
-                  );
-                })}
+              {this.generateCheckBox(this.props)}
             </div>
 
             <CKEditor
@@ -163,7 +182,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateChap: (chap,nomCours) => dispatch(CreateChap(chap,nomCours)),
+    CreateChap: (chap, nomCours) => dispatch(CreateChap(chap, nomCours)),
   };
 };
 export default compose(

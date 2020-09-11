@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CKEditor from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import DecoupledEditor from "@ckeditor/ckeditor5-build-decoupled-document";
 import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -32,15 +32,15 @@ class createChap extends Component {
   selectTag = (e) => {
     let listTag = this.state.tags;
     let check = e.target.checked;
-    let checkedTag = e.target.value
-    let id = e.target.id
+    let checkedTag = e.target.value;
+    let id = e.target.id;
     if (check) {
       this.setState({
         ...this.state,
-        tags: [...this.state.tags, {libelle:checkedTag,id:id}],
+        tags: [...this.state.tags, { libelle: checkedTag, id: id }],
       });
     } else {
-      var index = listTag.findIndex((tag)=>tag.libelle === checkedTag)
+      var index = listTag.findIndex((tag) => tag.libelle === checkedTag);
       if (index > -1) {
         listTag.splice(index, 1);
         this.setState({
@@ -68,7 +68,7 @@ class createChap extends Component {
       return null;
     }
     this.props.CreateChap(this.state, this.props.nomCours);
-    this.props.closeModal()
+    this.props.closeModal();
   };
 
   generateCheckBox = ({ tags }) => {
@@ -135,13 +135,20 @@ class createChap extends Component {
             <div className="form-group">
               {this.generateCheckBox(this.props)}
             </div>
-
+            <div id="editor"></div>
             <CKEditor
-              editor={ClassicEditor}
+              editor={DecoupledEditor}
               data=""
               onInit={(editor) => {
-                // You can store the "editor" and use when it is needed.
                 console.log("Editor is ready to use!", editor);
+
+                // Insert the toolbar before the editable area.
+                editor.ui
+                  .getEditableElement()
+                  .parentElement.insertBefore(
+                    editor.ui.view.toolbar.element,
+                    editor.ui.getEditableElement()
+                  );
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
@@ -149,12 +156,6 @@ class createChap extends Component {
                   ...this.state,
                   contenu: data,
                 });
-              }}
-              onBlur={(event, editor) => {
-                //console.log("Blur.", editor);
-              }}
-              onFocus={(event, editor) => {
-                //console.log("Focus.", editor);
               }}
             />
           </form>

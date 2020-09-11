@@ -7,7 +7,10 @@ function getTags(firestore, idProf) {
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
-          tags.push(doc.data());
+          tags.push({
+            id: doc.id,
+            libelle: doc.data().libelle,
+          });
         });
         resolve(tags);
       });

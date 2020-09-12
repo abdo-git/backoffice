@@ -3,10 +3,12 @@ import moment from "moment";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
-import {generateFile} from '../../store/actions/fileAction'
+import { generateFile } from "../../store/actions/fileAction";
+import DetailsCours from "./DetailsCours";
 
 const ListCours = ({ cours, auth, generateFile }) => {
   const [search, setSearch] = useState("");
+  const [details, setDeatils] = useState(false);
   const coursFilter = cours && cours.filter((cour) => cour.idProf === auth.uid);
   let filteredCours =
     coursFilter &&
@@ -44,12 +46,19 @@ const ListCours = ({ cours, auth, generateFile }) => {
                       <td>{cours.nbrOnglet}</td>
                       <td>{moment(cours.date.toDate()).calendar()}</td>
                       <td>
-                        <button type="button" className="btn btn-link">
+                        <button
+                          type="button"
+                          className="btn btn-link"
+                          onClick={() => setDeatils(true)}
+                        >
                           Details
                         </button>
                       </td>
                       <td>
-                        <button className="btn btn-primary btn-sm" onClick={()=>generateFile(cours)}>
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() => generateFile(cours)}
+                        >
                           <i className="fa fa-download" aria-hidden="true"></i>
                           Download
                         </button>
@@ -65,6 +74,7 @@ const ListCours = ({ cours, auth, generateFile }) => {
           </table>
         </div>
       </div>
+      {details ? <DetailsCours cours={coursFilter}/> : null}
     </div>
   );
 };
@@ -77,11 +87,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
   return {
-    generateFile: (cours) => dispatch(generateFile(cours))
-  }
-}
+    generateFile: (cours) => dispatch(generateFile(cours)),
+  };
+};
 export default compose(
   firestoreConnect([{ collection: "cours" }]),
   connect(mapStateToProps, mapDispatchToProps)

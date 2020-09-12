@@ -22,15 +22,15 @@ class addTag extends Component {
 
   render() {
     if (!this.props.auth.uid) return <Redirect to="/signin" />;
-
+    let filteredTags = this.props.tags && this.props.tags.filter((tag) => tag.idProf === this.props.auth.uid);
     return (
       <div className="container">
         <div className="card border-secondary mb-3">
           <h5 className="card-header">Listes des Tags</h5>
           <div className="card-body">
             <ul className="list-group list-group-flush">
-              {this.props.tags &&
-                this.props.tags.map((tag) => {
+              {filteredTags &&
+                filteredTags.map((tag) => {
                   return (
                     <li key={tag.id} id={tag.id} className="list-group-item">
                       {tag.libelle}

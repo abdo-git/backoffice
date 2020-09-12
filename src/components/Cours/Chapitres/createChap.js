@@ -71,23 +71,25 @@ class createChap extends Component {
     this.props.closeModal();
   };
 
-  generateCheckBox = ({ tags }) => {
+  generateCheckBox = ({ tags, auth }) => {
     let tagsRendered = [];
     tags &&
-      tags.map((tag) =>
-        tagsRendered.push(
-          <div key={tag.id}>
-            <input
-              id={tag.id}
-              name={tag.libelle}
-              value={tag.libelle}
-              type="checkbox"
-              onChange={this.selectTag}
-            />
-            <label htmlFor={tag.id}>{tag.libelle}</label>
-          </div>
-        )
-      );
+      tags.forEach((tag) => {
+        if (auth.uid === tag.idProf) {
+          tagsRendered.push(
+            <div key={tag.id}>
+              <input
+                id={tag.id}
+                name={tag.libelle}
+                value={tag.libelle}
+                type="checkbox"
+                onChange={this.selectTag}
+              />
+              <label htmlFor={tag.id}>{tag.libelle}</label>
+            </div>
+          );
+        }
+      });
     return tagsRendered;
   };
 
@@ -179,6 +181,7 @@ const mapStateToProps = (state) => {
   console.log(state);
   return {
     tags: state.firestore.ordered.tags,
+    auth: state.firebase.auth,
   };
 };
 const mapDispatchToProps = (dispatch) => {

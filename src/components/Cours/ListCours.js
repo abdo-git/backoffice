@@ -4,17 +4,22 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { generateFile } from "../../store/actions/fileAction";
+import { DeleteCours } from "../../store/actions/coursAction";
 import DetailsCours from "./DetailsCours";
+import ModalConfirm from "./ModalConfirm";
 
 const ListCours = ({ cours, auth, generateFile }) => {
   const [search, setSearch] = useState("");
   const [details, setDeatils] = useState(false);
+  const [remove, setRemove] = useState(false);
+  const [coursDelete, setCoursDelete] = useState(null);
   const coursFilter = cours && cours.filter((cour) => cour.idProf === auth.uid);
   let filteredCours =
     coursFilter &&
     coursFilter.filter((cours) => {
       return cours.nomCours.indexOf(search) !== -1;
     });
+
   return (
     <div className="container">
       <div className="card">
@@ -62,9 +67,18 @@ const ListCours = ({ cours, auth, generateFile }) => {
                           <i className="fa fa-download" aria-hidden="true"></i>
                           Download
                         </button>
-                        <button type="button" className="btn btn-danger btn-sm">
+                        <button
+                          type="button"
+                          className="btn btn-danger btn-sm"
+                          data-toggle="modal"
+                          data-target="#exampleModal"
+                          onClick={() => {
+                            setCoursDelete(cours);
+                            setRemove(true);
+                          }}
+                        >
                           <i className="fa fa-trash" aria-hidden="true"></i>
-                          Remove
+                          Delete
                         </button>
                       </td>
                     </tr>
@@ -74,7 +88,17 @@ const ListCours = ({ cours, auth, generateFile }) => {
           </table>
         </div>
       </div>
-      {details ? <DetailsCours cours={coursFilter}/> : null}
+      {remove ? (
+        <ModalConfirm
+          show={remove}
+          closeModal={() => {
+            setRemove(false);
+          }}
+          type={"cours"}
+          cours={coursDelete}
+        />
+      ) : null}
+      {details ? <DetailsCours cours={coursFilter} /> : null}
     </div>
   );
 };
@@ -90,6 +114,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     generateFile: (cours) => dispatch(generateFile(cours)),
+    deleteCours: (cours) => dispatch(DeleteCours(cours)),
   };
 };
 export default compose(

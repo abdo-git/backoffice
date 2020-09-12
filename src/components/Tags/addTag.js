@@ -4,10 +4,41 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { AddTag } from "../../store/actions/tagAction";
 import { Redirect } from "react-router-dom";
+import ModalConfirm from "../Cours/ModalConfirm";
 
 class addTag extends Component {
   state = {
     libelle: "",
+    tag: "",
+    remove: false,
+  };
+
+  getTags = ({ tags, auth }) => {
+    let filteredTags = [];
+    tags &&
+      tags.forEach((tag) => {
+        if (tag.idProf === auth.uid) {
+          filteredTags.push(
+            <li key={tag.id} id={tag.id} className="list-group-item">
+              {tag.libelle}
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  this.setState({
+                    ...this.state,
+                    tag: tag,
+                    remove: true,
+                  });
+                }}
+              >
+                Supprimer
+              </button>
+            </li>
+          );
+        }
+      });
+    return filteredTags;
   };
 
   handleChange = (e) => {
@@ -15,6 +46,7 @@ class addTag extends Component {
       [e.target.id]: e.target.value,
     });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.AddTag(this.state);
@@ -22,28 +54,13 @@ class addTag extends Component {
 
   render() {
     if (!this.props.auth.uid) return <Redirect to="/signin" />;
-    let filteredTags = this.props.tags && this.props.tags.filter((tag) => tag.idProf === this.props.auth.uid);
     return (
       <div className="container">
         <div className="card border-secondary mb-3">
           <h5 className="card-header">Listes des Tags</h5>
           <div className="card-body">
             <ul className="list-group list-group-flush">
-              {filteredTags &&
-                filteredTags.map((tag) => {
-                  return (
-                    <li key={tag.id} id={tag.id} className="list-group-item">
-                      {tag.libelle}
-                      <button
-                        type="submit"
-                        className="btn btn-primary"
-                        //onClick={this.handleSubmit}
-                      >
-                        Supprimer
-                      </button>
-                    </li>
-                  );
-                })}
+              {this.getTags(this.props)}
             </ul>
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
@@ -58,13 +75,26 @@ class addTag extends Component {
               <button
                 type="submit"
                 className="btn btn-primary"
-                onClick={this.handleSubmit}
               >
                 Ajouter
               </button>
             </form>
           </div>
         </div>
+        {console.log(this.state.remove)}
+        {this.state.remove ? (
+          <ModalConfirm
+            show={this.state.remove}
+            closeModal={() => {
+              this.setState({
+                ...this.state,
+                remove: false,
+              });
+            }}
+            type={"tag"}
+            tag={this.state.tag}
+          />
+        ) : null}
       </div>
     );
   }

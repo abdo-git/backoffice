@@ -7,22 +7,37 @@ const initState = {
       date: "",
     },
   ],
+  exist: null,
 };
 const courReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADD_COURS":
       console.log("Cours Ajoute");
-      break;
+      return {
+        ...state,
+        exist: null,
+      };
     case "DELETE_COURS":
       console.log("cours supprime avec succes");
-      break;
+      return {
+        ...state,
+        exist: null,
+      };
+    case "EXIST":
+      console.log("exist");
+      return {
+        ...state,
+        exist: action.msg,
+      };
     case "Error":
       console.log(action.err);
-      break;
+      return {
+        ...state,
+        exist: null,
+      };
     default:
-      break;
+      return state;
   }
-  return state;
 };
 
 export default courReducer;

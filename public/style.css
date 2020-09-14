@@ -1,7 +1,9 @@
 nav .navbar-nav li a {
   color: white !important;
 }
-
+.fa-file-pdf{
+	font-size: 3em; color: red;
+}
 svg {
   width: 80px;
   height: 30px;
@@ -29,16 +31,6 @@ svg {
   left: 0;
   z-index: 1;
 }
-
-.btn-facebook {
-  background-color: #405d9d;
-  color: #fff;
-}
-.btn-twitter {
-  background-color: #42aeec;
-  color: #fff;
-}
-
 
 .modal-confirm {		
 	color: #636363;
@@ -78,21 +70,7 @@ svg {
 .modal-confirm .modal-footer a {
 	color: #999;
 }		
-.modal-confirm .icon-box {
-	width: 80px;
-	height: 80px;
-	margin: 0 auto;
-	border-radius: 50%;
-	z-index: 9;
-	text-align: center;
-	border: 3px solid #f15e5e;
-}
-.modal-confirm .icon-box i {
-	color: #f15e5e;
-	font-size: 46px;
-	display: inline-block;
-	margin-top: 13px;
-}
+
 .modal-confirm .btn, .modal-confirm .btn:active {
 	color: #fff;
 	border-radius: 4px;
@@ -118,3 +96,30 @@ svg {
 .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
 	background: #ee3535;
 }
+
+.loader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	width: 150px;
+	height: 150px;
+	margin: -75px 0 0 -75px;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+  }
+  
+  @-webkit-keyframes spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }

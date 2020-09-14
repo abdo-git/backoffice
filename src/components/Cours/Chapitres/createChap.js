@@ -60,15 +60,15 @@ class createChap extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (
+      this.state.contenu === "" || 
       this.state.titre === "" ||
-      this.state.volumeHoraire === "" ||
-      this.state.contenu === ""
+      this.state.volumeHoraire === ""
     ) {
-      alert("champ vide");
+      alert("please fill out all the fields !!");
       return null;
     }
     this.props.CreateChap(this.state, this.props.nomCours);
-    this.props.closeModal();
+    this.props.closeModal(this.state.contenu);
   };
 
   generateCheckBox = ({ tags, auth }) => {
@@ -94,6 +94,7 @@ class createChap extends Component {
   };
 
   render() {
+    console.log(this.props)
     return (
       <Modal show={this.props.show} onHide={this.props.closeModal}>
         <Modal.Header closeButton>
@@ -109,6 +110,7 @@ class createChap extends Component {
                 className="form-control"
                 id="titre"
                 placeholder="titre du chapitre"
+                required
                 onChange={this.handleChange}
               />
             </div>
@@ -119,6 +121,7 @@ class createChap extends Component {
                 className="form-control"
                 id="volumeHoraire"
                 placeholder="volume horaire"
+                required
                 onChange={this.handleChange}
               />
             </div>
@@ -178,7 +181,6 @@ class createChap extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     tags: state.firestore.ordered.tags,
     auth: state.firebase.auth,

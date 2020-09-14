@@ -68,7 +68,9 @@ class addTag extends Component {
                   type="text"
                   className="form-control"
                   id="libelle"
+                  value={this.state.libelle}
                   placeholder="nouveau tag"
+                  required
                   onChange={this.handleChange}
                 />
               </div>

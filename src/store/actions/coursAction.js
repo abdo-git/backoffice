@@ -33,10 +33,8 @@ function delOnglet(idCours, firestore) {
 export const DeleteCours = (cours) => {
   return async (dispatch, getState, { getFirebase }) => {
     const firestore = getFirebase().firestore();
-    console.log("cours supp", cours.id)
     const chap = await delChap(cours.id, firestore);
     const onglet = await delOnglet(cours.id, firestore);
-    console.log(chap, onglet)
     if (chap && onglet) {
       firestore
         .collection("cours")
@@ -52,33 +50,47 @@ export const DeleteCours = (cours) => {
   };
 };
 
-export const CreateCours = (cours) => {
-  return (dispatch, getState, { getFirebase }) => {
-    console.log(getState(), getFirebase());
+function coursAlreadyExist(listCours, idProf, nomCours) {
+  return new Promise((resolve) => {
+    console.log(listCours)
+    const coursFiltered =
+      listCours && listCours.filter((cours) => cours.idProf === idProf);
+      if(coursFiltered.length !== 0){
+        coursFiltered.forEach((cours) => {
+          if (cours.nomCours === nomCours) resolve(true);
+        });
+
+      }
+    resolve(false);
+  });
+}
+
+export const CreateCours = (cours, listCours) => {
+  return async (dispatch, getState, { getFirebase }) => {
     const idProf = getState().firebase.auth.uid;
+    console.log(listCours)
+    const existCours = await coursAlreadyExist(
+      listCours,
+      idProf,
+      cours.nomCours
+    );
     const firestore = getFirebase().firestore();
-    firestore
-      .collection("cours")
-      .where("nomCours", "==", cours.nomCours)
-      .get()
-      .then((snapshot) => {
-        if (!snapshot.empty) {
-          alert("cours already exist");
-        } else {
-          firestore
-            .collection("cours")
-            .add({
-              ...cours,
-              idProf: idProf,
-              date: new Date(),
-            })
-            .then(() => {
-              dispatch({ type: "ADD_COURS", cours: cours });
-            })
-            .catch((err) => {
-              dispatch({ type: "Error", err });
-            });
-        }
-      });
+    if (!existCours) {
+      firestore
+        .collection("cours")
+        .add({
+          ...cours,
+          idProf: idProf,
+          date: new Date(),
+        })
+        .then(() => {
+          dispatch({ type: "ADD_COURS", cours: cours });
+        })
+        .catch((err) => {
+          dispatch({ type: "Error", err });
+        });
+    } else {
+      dispatch({type:"EXIST", msg:"cours already exist, try with another name !"})
+    }
   };
 };

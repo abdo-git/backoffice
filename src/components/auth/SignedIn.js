@@ -3,12 +3,18 @@ import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
 
-
 export class SignedIn extends Component {
   state = {
     email: "",
     password: "",
+    loginClicked: false,
   };
+
+  disappearMsg(signinError) {
+    let msg = signinError;
+    signinError = null;
+    return <p>{msg}</p>;
+  }
   handleChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -17,10 +23,14 @@ export class SignedIn extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.setState({
+      ...this.state,
+      loginClicked: true,
+    });
     this.props.signIn(this.state);
   };
   render() {
-    const { authError, auth } = this.props;
+    let { signinError, auth } = this.props;
     if (auth.uid) return <Redirect to="/" />;
 
     return (
@@ -33,6 +43,7 @@ export class SignedIn extends Component {
               className="form-control"
               id="email"
               aria-describedby="email"
+              required
               onChange={this.handleChange}
             />
           </div>
@@ -42,6 +53,7 @@ export class SignedIn extends Component {
               type="password"
               className="form-control"
               id="password"
+              required
               onChange={this.handleChange}
             />
           </div>
@@ -49,7 +61,9 @@ export class SignedIn extends Component {
             Login
           </button>
           <div className="text-center text-danger">
-            {authError ? <p>{authError}</p> : null}
+            {this.state.loginClicked && signinError
+              ? <p>{signinError}</p>
+              : null}
           </div>
         </form>
       </div>
@@ -58,9 +72,10 @@ export class SignedIn extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    authError: state.auth.authError,
-    auth: state.firebase.auth
+    signinError: state.auth.signinError,
+    auth: state.firebase.auth,
   };
 };
 const mapDispatchToProps = (dispatch) => {

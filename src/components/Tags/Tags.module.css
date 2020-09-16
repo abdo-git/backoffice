@@ -1,0 +1,46 @@
+.content {
+  padding: 40px 0;
+}
+
+.content h3 {
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.content .listTag {
+  max-width: 600px;
+  width: 90%;
+  margin: auto;
+}
+
+.content li {
+  font-weight: bold;
+  font-size: larger;
+}
+.btnPrimary {
+  color: #009387;
+  border-color: #009387;
+}
+.btnPrimary:hover {
+  background-color: white;
+  color: red;
+  border-color: red;
+}
+.inpGrp {
+  margin-bottom: 5px;
+}
+
+.inpGrp .btnPrimary {
+  background: white;
+}
+.inpGrp .btnPrimary:hover {
+  background-color: white;
+  color: grey;
+  border-color: grey;
+}
+
+ul {
+  max-height: 300px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

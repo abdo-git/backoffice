@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import Onglet from "./Onglets/Onglet";
 import { CreateCours } from "../../store/actions/coursAction";
 import { Redirect } from "react-router-dom";
+import { compose } from "redux";
+import { firestoreConnect } from "react-redux-firebase";
+
 class Createcours extends Component {
   state = {
     nomCours: "",
@@ -18,12 +21,8 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    if (this.state.nomCours === "" || this.state.nbrOnglet === "") {
-      alert("champ vide !");
-      return null;
-    }
     this.setState({ buttonClicked: true });
-    this.props.CreateCours(this.state);
+    this.props.CreateCours(this.state, this.props.cours);
   };
 
   showOnglets = (nbrOnglet) => {
@@ -36,7 +35,7 @@ class Createcours extends Component {
 
   render() {
     if (!this.props.auth.uid) return <Redirect to="/signin" />;
-
+    const { coursExist } = this.props;
     return (
       <div className="container">
         <div className="card border-secondary mb-3">
@@ -50,6 +49,7 @@ class Createcours extends Component {
                   className="form-control"
                   id="nomCours"
                   placeholder="intitulé du cours"
+                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -60,6 +60,7 @@ class Createcours extends Component {
                   className="form-control"
                   id="nbrOnglet"
                   placeholder="nombre d'onglet"
+                  required
                   onChange={this.handleChange}
                 />
               </div>
@@ -67,9 +68,14 @@ class Createcours extends Component {
                 Créer
               </button>
             </form>
+            <div className="text-center text-danger">
+              {this.state.buttonClicked && coursExist ? (
+                <p>{coursExist}</p>
+              ) : null}
+            </div>
           </div>
         </div>
-        {this.state.buttonClicked
+        {this.state.buttonClicked && coursExist === null
           ? this.showOnglets(this.state.nbrOnglet)
           : null}
       </div>
@@ -78,14 +84,20 @@ class Createcours extends Component {
 }
 
 const mapPropsToState = (state) => {
+  console.log(state);
   return {
     auth: state.firebase.auth,
+    cours: state.firestore.ordered.cours,
+    coursExist: state.cours.exist,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    CreateCours: (cours) => dispatch(CreateCours(cours)),
+    CreateCours: (cours, listCours) => dispatch(CreateCours(cours, listCours)),
   };
 };
 
-export default connect(mapPropsToState, mapDispatchToProps)(Createcours);
+export default compose(
+  firestoreConnect([{ collection: "cours" }]),
+  connect(mapPropsToState, mapDispatchToProps)
+)(Createcours);

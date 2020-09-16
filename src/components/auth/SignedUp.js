@@ -9,6 +9,7 @@ export class signedUp extends Component {
     email: "",
     password: "",
     verifyPassword: false,
+    signUpClicked: false
   };
 
   handleChange = (e) => {
@@ -18,11 +19,12 @@ export class signedUp extends Component {
   };
 
   verifyPassword = (e) => {
-    return e.target.value === this.state.password
-      ? this.setState({
-          verifyPassword: true,
-        })
-      : null;
+    if (e.target.value === this.state.password) {
+      this.setState({
+        ...this.state,
+        verifyPassword: true,
+      });
+    }
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -30,11 +32,15 @@ export class signedUp extends Component {
       alert("confirmation du password incorrecte");
       return null;
     }
+    this.setState({
+      ...this.state,
+      signUpClicked: true
+   })
     this.props.signUp(this.state);
+    if (this.props.signupError !== null) window.location = "/signin";
   };
   render() {
-    const { auth, authError } = this.props;
-    if (auth.uid) return <Redirect to="/" />;
+    let { signupError } = this.props;
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit}>
@@ -44,6 +50,7 @@ export class signedUp extends Component {
               className="form-control"
               placeholder="Full name"
               type="text"
+              required
               onChange={this.handleChange}
             />
           </div>
@@ -53,6 +60,7 @@ export class signedUp extends Component {
               className="form-control"
               placeholder="Email address"
               type="email"
+              required
               onChange={this.handleChange}
             />
           </div>
@@ -62,6 +70,7 @@ export class signedUp extends Component {
               placeholder="Create password"
               type="password"
               id="password"
+              required
               onChange={this.handleChange}
             />
           </div>
@@ -70,6 +79,7 @@ export class signedUp extends Component {
               className="form-control"
               placeholder="Repeat password"
               type="password"
+              required
               onChange={this.verifyPassword}
             />
           </div>
@@ -78,7 +88,8 @@ export class signedUp extends Component {
               Create Account
             </button>
             <div className="text-center text-danger">
-              {authError ? <p>{authError}</p> : null}
+              {this.state.signUpClicked && signupError ? <p>{signupError}</p>
+                : null}
             </div>
           </div>
         </form>
@@ -88,9 +99,10 @@ export class signedUp extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError,
+    signupError: state.auth.signupError,
   };
 };
 

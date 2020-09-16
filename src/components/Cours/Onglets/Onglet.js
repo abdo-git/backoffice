@@ -4,13 +4,16 @@ import { compose } from "redux";
 import CreateChap from "../Chapitres/createChap";
 import { CreateOnglet } from "../../../store/actions/ongletAction";
 import { firestoreConnect } from "react-redux-firebase";
+import ChapPDF from "../Chapitres/chapPDF";
 
 class Onglet extends Component {
   state = {
     idOnglet: "",
     nomOnglet: "",
+    contentChap: "",
     addOnlget: false,
     showModal: false,
+    chapitre: [],
   };
 
   handleChange = (e) => {
@@ -28,12 +31,30 @@ class Onglet extends Component {
     });
   };
   closeModal = () => {
+    console.log("closed");
     this.setState({
       ...this.state,
       showModal: false,
     });
   };
-  
+
+  getChapitreContent = (content) => {
+    let button = (
+      <button
+        className=" btn btn-link"
+        // onClick={}
+      >
+        <i className="far fa-file-pdf"></i>
+      </button>
+    );
+    this.setState({
+      ...this.state,
+      contentChap: content,
+      chapitre: [...this.state.chapitre, button],
+      showModal: false,
+    });
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.nomOnglet === "") {
@@ -62,6 +83,10 @@ class Onglet extends Component {
                 onChange={this.handleChange}
               />
             </div>
+            <div>
+              {this.state.contentChap !== "" ? this.state.chapitre : null}
+            </div>
+            <br />
             <button
               type="submit"
               className="btn btn-primary"
@@ -69,13 +94,10 @@ class Onglet extends Component {
             >
               Ajouter Onglet
             </button>
-            <button type="submit" className="btn btn-primary">
-              Supprimer onglet
-            </button>
             {this.state.addOnlget ? (
               <button
                 type="submit"
-                className="btn btn-primary pull-right"
+                className="btn btn-primary float-right"
                 onClick={this.showModal}
               >
                 Ajouter Chapitre
@@ -85,7 +107,10 @@ class Onglet extends Component {
         </div>
         {this.state.showModal ? (
           <CreateChap
-            closeModal={this.closeModal}
+            closeModal={(content) => {
+              this.closeModal();
+              this.getChapitreContent(content);
+            }}
             show={this.state.showModal}
             id={this.props.id}
             key={this.props.id}

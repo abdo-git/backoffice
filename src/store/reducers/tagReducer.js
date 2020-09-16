@@ -11,9 +11,12 @@ const tagReducer = (state = initState, action) => {
     case "ADD_TAG":
       console.log("tag Ajoute");
       break;
+    case "DELETE_TAG":
+      console.log("tag supprime");
+      break;
     case "ERROR ":
-        console.log(action.err)
-        break;
+      console.log(action.err);
+      break;
     default:
       break;
   }

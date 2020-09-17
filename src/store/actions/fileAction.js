@@ -41,6 +41,7 @@ function getOnglets(firestore, idCours, chaps) {
     firestore
       .collection("onglet")
       .where("idCours", "==", idCours)
+      .orderBy("idOnglet")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
@@ -59,7 +60,6 @@ function getOnglets(firestore, idCours, chaps) {
 
 export const generateFile = (cours) => {
   return async (dispatch, getState, { getFirebase }) => {
-    console.log(getState());
     const firestore = getFirebase().firestore();
     const chaps = await getChapitres(firestore, cours.id);
     const onglet = await getOnglets(firestore, cours.id, chaps);
@@ -74,11 +74,11 @@ export const generateFile = (cours) => {
     var a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
-    var json = JSON.stringify(file),
-      blob = new Blob([json], { type: "octet/stream" }),
+    var json = JSON.stringify(file, null, 2),
+      blob = new Blob([json], { type: "application/json" }),
       url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = cours.nomCours + ".json";
+    a.download = "Data.json";
     a.click();
     window.URL.revokeObjectURL(url);
   };

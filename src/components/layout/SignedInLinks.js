@@ -2,31 +2,28 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { signOut } from "../../store/actions/authAction";
+import styles from "./NavBar.module.css";
 
 const SignedInLinks = (props) => {
   return (
-    <ul className="navbar-nav">
-      <li className="nav-item">
-        <NavLink to="/listcours" className="nav-link">
-          Mes cours
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink to="/satistiques" className="nav-link">
-          Statistiques
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink to="/tags" className="nav-link">
-          Tags
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <a href="/" onClick={props.signOut} className="nav-link">
-          Log Out
-        </a>
-      </li>
-    </ul>
+    <span className={`navbar-text ${styles.actions} ${styles.txt}`}>
+      <NavLink to="/listcours" className={styles.login}>
+        Mes cours
+      </NavLink>
+      <NavLink to="/satistiques" className={styles.login}>
+        Statistiques
+      </NavLink>
+      <NavLink to="/tags" className={styles.login}>
+        Tags
+      </NavLink>
+      <a
+        href="/"
+        onClick={props.signOut}
+        className={`btn btn-light ${styles["action-button"]}`}
+      >
+        Log Out
+      </a>
+    </span>
   );
 };
 

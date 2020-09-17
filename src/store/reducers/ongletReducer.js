@@ -3,7 +3,7 @@ const initState = {
     {
       idOnglet: "",
       nom: "",
-      idCours:''
+      idCours: "",
     },
   ],
 };
@@ -11,7 +11,6 @@ const initState = {
 const ongletReducer = (state = initState, action) => {
   switch (action.type) {
     case "ADD_ONGLET":
-      console.log("onglet Ajoute");
       break;
     case "Error":
       console.log(action.err);

@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { AddTag } from "../../store/actions/tagAction";
 import { Redirect } from "react-router-dom";
+import styles from "./Tags.module.css";
 import ModalConfirm from "../Cours/ModalConfirm";
 
 class addTag extends Component {
@@ -13,17 +14,35 @@ class addTag extends Component {
     remove: false,
   };
 
+  handleChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  };
+  handleSubmit = (e) => {
+    if (this.state.libelle.length) {
+      e.preventDefault();
+      this.props.AddTag(this.state);
+      this.setState({
+        libelle: "",
+      });
+    }
+  };
   getTags = ({ tags, auth }) => {
     let filteredTags = [];
     tags &&
       tags.forEach((tag) => {
         if (tag.idProf === auth.uid) {
           filteredTags.push(
-            <li key={tag.id} id={tag.id} className="list-group-item">
-              {tag.libelle}
+            <li
+              key={tag.id}
+              id={tag.id}
+              className="list-group-item  d-flex justify-content-between"
+            >
+              <span>{tag.libelle}</span>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-outline-danger btn-sm"
                 onClick={() => {
                   this.setState({
                     ...this.state,
@@ -32,7 +51,7 @@ class addTag extends Component {
                   });
                 }}
               >
-                Supprimer
+                <i class="far fa-trash-alt"></i>
               </button>
             </li>
           );
@@ -41,49 +60,35 @@ class addTag extends Component {
     return filteredTags;
   };
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.AddTag(this.state);
-  };
-
   render() {
     if (!this.props.auth.uid) return <Redirect to="/signin" />;
+
     return (
-      <div className="container">
-        <div className="card border-secondary mb-3">
-          <h5 className="card-header">Listes des Tags</h5>
-          <div className="card-body">
-            <ul className="list-group list-group-flush">
-              {this.getTags(this.props)}
-            </ul>
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="libelle"
-                  value={this.state.libelle}
-                  placeholder="nouveau tag"
-                  required
-                  onChange={this.handleChange}
-                />
+      <div className={styles.content}>
+        <div className={styles.listTag}>
+          <h3 className="text-center">Liste des tags</h3>
+          <form onSubmit={this.handleSubmit}>
+            <div className={`input-group ${styles.inpGrp}`}>
+              <input
+                onChange={this.handleChange}
+                value={this.state.libelle}
+                className="form-control"
+                id="libelle"
+                type="text"
+                placeholder="nouveau tag"
+                required
+              />
+              <div className="input-group-append">
+                <button className="btn btn-outline-info btn-sm" type="submit">
+                  <strong>Ajouter</strong>
+                </button>
               </div>
-              <button
-                type="submit"
-                className="btn btn-primary"
-              >
-                Ajouter
-              </button>
-            </form>
-          </div>
+            </div>
+          </form>
+          <ul className="list-group list-group-flush">
+            {this.getTags(this.props)}
+          </ul>
         </div>
-        {console.log(this.state.remove)}
         {this.state.remove ? (
           <ModalConfirm
             show={this.state.remove}
@@ -103,7 +108,6 @@ class addTag extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     tags: state.firestore.ordered.tags,
     auth: state.firebase.auth,

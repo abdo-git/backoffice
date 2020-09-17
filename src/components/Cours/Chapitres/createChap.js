@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { CreateChap } from "../../../store/actions/chapAction";
 import { firestoreConnect } from "react-redux-firebase";
+import styles from "./modal.module.css";
 
 class createChap extends Component {
   state = {
@@ -60,7 +61,7 @@ class createChap extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (
-      this.state.contenu === "" || 
+      this.state.contenu === "" ||
       this.state.titre === "" ||
       this.state.volumeHoraire === ""
     ) {
@@ -68,7 +69,7 @@ class createChap extends Component {
       return null;
     }
     this.props.CreateChap(this.state, this.props.nomCours);
-    this.props.closeModal(this.state.contenu);
+    this.props.showPdf(this.state.contenu, this.state.titre);
   };
 
   generateCheckBox = ({ tags, auth }) => {
@@ -77,16 +78,19 @@ class createChap extends Component {
       tags.forEach((tag) => {
         if (auth.uid === tag.idProf) {
           tagsRendered.push(
-            <div key={tag.id}>
+            <span key={tag.id} className="form-check form-check-inline">
               <input
+                className="form-check-input"
                 id={tag.id}
                 name={tag.libelle}
                 value={tag.libelle}
                 type="checkbox"
                 onChange={this.selectTag}
               />
-              <label htmlFor={tag.id}>{tag.libelle}</label>
-            </div>
+              <label className="form-check-label" htmlFor={tag.id}>
+                {tag.libelle}
+              </label>
+            </span>
           );
         }
       });
@@ -94,82 +98,98 @@ class createChap extends Component {
   };
 
   render() {
-    console.log(this.props)
     return (
-      <Modal show={this.props.show} onHide={this.props.closeModal}>
+      <Modal
+        dialogClassName={styles["modal-90w"]}
+        show={this.props.show}
+        backdrop="static"
+        onHide={this.props.closeModal}
+      >
         <Modal.Header closeButton>
-          <Modal.Title>Créer votre chapitre ici</Modal.Title>
+          <Modal.Title className="text-center">
+            Créer votre chapitre ici
+          </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="titre">Titre du chapitre:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="titre"
-                placeholder="titre du chapitre"
-                required
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="volumeHoraire">Volume horaire:</label>
-              <input
-                type="number"
-                className="form-control"
-                id="volumeHoraire"
-                placeholder="volume horaire"
-                required
-                onChange={this.handleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="niveau">Niveau</label>
-              <select
-                value={this.state.niveau}
-                className="form-control"
-                id="niveau"
-                placeholder="niveau"
-                onChange={this.handleChange}
-              >
-                {this.option()}
-              </select>
-            </div>
-            <div className="form-group">
-              {this.generateCheckBox(this.props)}
-            </div>
-            <div id="editor"></div>
-            <CKEditor
-              editor={DecoupledEditor}
-              data=""
-              onInit={(editor) => {
-                console.log("Editor is ready to use!", editor);
+            <div className="row">
+              <div className="input-group col-md-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Titre du chapitre</span>
+                </div>
+                <input
+                  className="form-control"
+                  type="text"
+                  id="titre"
+                  placeholder="titre du chapitre"
+                  required
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="input-group col-md-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Volume horaire</span>
+                </div>
+                <input
+                  type="number"
+                  min="0"
+                  className="form-control"
+                  id="volumeHoraire"
+                  placeholder="volume horaire"
+                  required
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="input-group col-md-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Niveau</span>
+                </div>
+                <select
+                  className="form-control"
+                  value={this.state.niveau}
+                  id="niveau"
+                  placeholder="niveau"
+                  onChange={this.handleChange}
+                >
+                  {this.option()}
+                </select>
+              </div>
 
-                // Insert the toolbar before the editable area.
-                editor.ui
-                  .getEditableElement()
-                  .parentElement.insertBefore(
-                    editor.ui.view.toolbar.element,
-                    editor.ui.getEditableElement()
-                  );
-              }}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                this.setState({
-                  ...this.state,
-                  contenu: data,
-                });
-              }}
-            />
+              <div className={`form-group row ${styles.tgs}`}>
+                <label className="col-sm-2 col-form-label">choisir tag :</label>
+                {this.generateCheckBox(this.props)}
+              </div>
+            </div>
+            <div>
+              <CKEditor
+                editor={DecoupledEditor}
+                data=""
+                onInit={(editor) => {
+                  // Insert the toolbar before the editable area.
+                  editor.ui
+                    .getEditableElement()
+                    .parentElement.insertBefore(
+                      editor.ui.view.toolbar.element,
+                      editor.ui.getEditableElement()
+                    );
+                }}
+                onChange={(event, editor) => {
+                  const data = editor.getData();
+                  this.setState({
+                    ...this.state,
+                    contenu: data,
+                  });
+                }}
+              />
+            </div>
           </form>
         </Modal.Body>
 
         <Modal.Footer>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-outline-primary"
             onClick={this.handleSubmit}
           >
             Créer

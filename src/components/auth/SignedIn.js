@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { signIn } from "../../store/actions/authAction";
 import { Redirect } from "react-router-dom";
+import styles from "./Auth.module.css";
 
 export class SignedIn extends Component {
   state = {
@@ -9,7 +10,6 @@ export class SignedIn extends Component {
     password: "",
     loginClicked: false,
   };
-
   disappearMsg(signinError) {
     let msg = signinError;
     signinError = null;
@@ -34,36 +34,43 @@ export class SignedIn extends Component {
     if (auth.uid) return <Redirect to="/" />;
 
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit}>
+      <div className={styles.content}>
+        <form className={styles.formIn} onSubmit={this.handleSubmit}>
+          <div className={styles.illustration}>
+            <i className="fas fa-user-lock"></i>
+          </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${styles.formControl}`}
               id="email"
               aria-describedby="email"
+              placeholder="Email"
               required
               onChange={this.handleChange}
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <input
               type="password"
-              className="form-control"
+              className={`form-control ${styles.formControl}`}
               id="password"
+              placeholder="Password"
               required
               onChange={this.handleChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Login
+
+          <button
+            type="submit"
+            className={`btn btn-primary btn-block ${styles.btnPrimary}`}
+          >
+            Log In
           </button>
-          <div className="text-center text-danger">
-            {this.state.loginClicked && signinError
-              ? <p>{signinError}</p>
-              : null}
+          <div className={styles.error}>
+            {this.state.loginClicked && signinError ? (
+              <p>{signinError}</p>
+            ) : null}
           </div>
         </form>
       </div>
@@ -72,7 +79,6 @@ export class SignedIn extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     signinError: state.auth.signinError,
     auth: state.firebase.auth,

@@ -10,9 +10,11 @@ class Onglet extends Component {
   state = {
     idOnglet: "",
     nomOnglet: "",
-    contentChap: "",
-    addOnlget: false,
+    contentChap: [],
+    titre: "",
+    addOnglet: false,
     showModal: false,
+    showPDF: false,
     chapitre: [],
   };
 
@@ -23,6 +25,16 @@ class Onglet extends Component {
       nomOnglet: e.target.value,
     });
   };
+  showModalPdf = (e) => {
+    e.preventDefault();
+    if (e.target.id) {
+      this.setState({
+        ...this.state,
+        showPDF: true,
+        titre: e.target.id,
+      });
+    }
+  };
   showModal = (e) => {
     e.preventDefault();
     this.setState({
@@ -30,44 +42,63 @@ class Onglet extends Component {
       showModal: true,
     });
   };
+  closeModalPdf = () => {
+    this.setState({
+      ...this.state,
+      showPDF: false,
+    });
+  };
   closeModal = () => {
-    console.log("closed");
     this.setState({
       ...this.state,
       showModal: false,
     });
   };
 
-  getChapitreContent = (content) => {
+  showPdf = (content, titre) => {
     let button = (
       <button
-        className=" btn btn-link"
-        // onClick={}
+        type="button"
+        className="btn btn-link"
+        key={titre}
+        id={titre}
+        onClick={this.showModalPdf}
       >
-        <i className="far fa-file-pdf"></i>
+        <i id={titre} className="far fa-file-pdf fa-2x"></i>
       </button>
     );
     this.setState({
       ...this.state,
-      contentChap: content,
+      contentChap: [
+        ...this.state.contentChap,
+        { content: content, titre: titre },
+      ],
       chapitre: [...this.state.chapitre, button],
       showModal: false,
     });
+
+    console.log(this.state.chapitre);
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+
     if (this.state.nomOnglet === "") {
       alert("champ vide !");
       return null;
     }
     this.setState({
       ...this.state,
-      addOnlget: true,
+      addOnglet: true,
     });
+
     this.props.CreateOnglet(this.state, this.props.nomCours);
+    let button = document.getElementById("Onglet" + this.props.id);
+    button.remove();
   };
+
   render() {
+    const id = "Onglet" + this.props.id;
     return (
       <div key={this.props.id} className="card border-secondary mb-3">
         <h5 className="card-header">Onglet {this.props.id}</h5>
@@ -80,24 +111,24 @@ class Onglet extends Component {
                 className="form-control"
                 id="nomOnglet"
                 placeholder="nom onlget"
+                required
                 onChange={this.handleChange}
               />
             </div>
-            <div>
-              {this.state.contentChap !== "" ? this.state.chapitre : null}
-            </div>
+            <div>{this.state.chapitre}</div>
             <br />
             <button
+              id={id}
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
               onClick={this.handleSubmit}
             >
               Ajouter Onglet
             </button>
-            {this.state.addOnlget ? (
+            {this.state.addOnglet ? (
               <button
                 type="submit"
-                className="btn btn-primary float-right"
+                className="btn btn-outline-primary float-right"
                 onClick={this.showModal}
               >
                 Ajouter Chapitre
@@ -107,24 +138,30 @@ class Onglet extends Component {
         </div>
         {this.state.showModal ? (
           <CreateChap
-            closeModal={(content) => {
-              this.closeModal();
-              this.getChapitreContent(content);
-            }}
+            closeModal={this.closeModal}
+            showPdf={this.showPdf}
             show={this.state.showModal}
             id={this.props.id}
             key={this.props.id}
             nomCours={this.props.nomCours}
           />
         ) : null}
+        {this.state.showPDF ? (
+          <ChapPDF
+            show={this.state.showPDF}
+            close={this.closeModalPdf}
+            contentChap={this.state.contentChap}
+            titre={this.state.titre}
+          />
+        ) : null}
       </div>
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     onglet: state.firestore.ordered.onglet,
+    exist: state.onglet.exist,
   };
 };
 const mapDispatchToProps = (dispatch) => {

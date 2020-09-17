@@ -1,0 +1,16 @@
+.modal-90w {
+  max-width: 100%;
+  width: 95%;
+}
+.editor {
+  max-height: 150px;
+  height: 150px;
+}
+.tgs {
+  padding: 15px 20px;
+  max-width: 90%;
+  width: 100%;
+}
+.ck-editor__editable_inline {
+  min-height: 400px;
+}

@@ -5,8 +5,7 @@ import Createcours from "./components/Cours/Createcours";
 import addTag from "./components/Tags/addTag";
 import signedIn from "./components/auth/SignedIn";
 import signedUp from "./components/auth/SignedUp";
-import ListCours from './components/Cours/ListCours'
-
+import ListCours from "./components/Cours/ListCours";
 
 class App extends Component {
   render() {

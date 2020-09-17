@@ -52,15 +52,14 @@ export const DeleteCours = (cours) => {
 
 function coursAlreadyExist(listCours, idProf, nomCours) {
   return new Promise((resolve) => {
-    console.log(listCours)
+    console.log(listCours);
     const coursFiltered =
       listCours && listCours.filter((cours) => cours.idProf === idProf);
-      if(coursFiltered.length !== 0){
-        coursFiltered.forEach((cours) => {
-          if (cours.nomCours === nomCours) resolve(true);
-        });
-
-      }
+    if (coursFiltered.length !== 0) {
+      coursFiltered.forEach((cours) => {
+        if (cours.nomCours === nomCours) resolve(true);
+      });
+    }
     resolve(false);
   });
 }
@@ -68,7 +67,6 @@ function coursAlreadyExist(listCours, idProf, nomCours) {
 export const CreateCours = (cours, listCours) => {
   return async (dispatch, getState, { getFirebase }) => {
     const idProf = getState().firebase.auth.uid;
-    console.log(listCours)
     const existCours = await coursAlreadyExist(
       listCours,
       idProf,
@@ -90,7 +88,10 @@ export const CreateCours = (cours, listCours) => {
           dispatch({ type: "Error", err });
         });
     } else {
-      dispatch({type:"EXIST", msg:"cours already exist, try with another name !"})
+      dispatch({
+        type: "EXIST",
+        msg: "cours already exist",
+      });
     }
   };
 };

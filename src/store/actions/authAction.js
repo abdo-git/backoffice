@@ -16,7 +16,6 @@ export const signIn = (credentials) => {
 export const signOut = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
-    console.log("sign out");
     firebase
       .auth()
       .signOut()
@@ -35,17 +34,21 @@ export const signUp = (prof) => {
       .auth()
       .createUserWithEmailAndPassword(prof.email, prof.password)
       .then((resp) => {
-        return firestore.collection("professeur").doc(resp.user.uid).set({
-          fullName: prof.fullName,
-        }).then(() => {
-          firebase
-            .auth()
-            .signOut()
-            .then(() => console.log("signout"));
-        })
+        return firestore
+          .collection("professeur")
+          .doc(resp.user.uid)
+          .set({
+            fullName: prof.fullName,
+          })
+          .then(() => {
+            firebase
+              .auth()
+              .signOut()
+              .then(() => console.log("signout"));
+          });
       })
       .catch((err) => {
-        console.log("error")
+        console.log("error");
         dispatch({ type: "SIGNUP_ERROR", err });
       });
   };

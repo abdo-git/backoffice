@@ -48,7 +48,7 @@ export const CreateOnglet = (onglet, nomCours) => {
           dispatch({ type: "ERROR", err });
         });
     } else {
-      alert("already exist ! type another name and click \"Ajouter Onglet\"");
+      alert("already exist ! type another name and click \"Ajouter Onglet\"")
     }
   };
 };

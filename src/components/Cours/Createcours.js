@@ -22,11 +22,13 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ buttonClicked: true });
     this.props.CreateCours(this.state, this.props.cours);
+    this.setState({ buttonClicked: true });
   };
 
   showOnglets = (nbrOnglet) => {
+    let button = document.getElementById('buttonClicked')
+    button.disabled = true
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
       onglets.push(<Onglet key={i} nomCours={this.state.nomCours} id={i} />);
@@ -58,7 +60,7 @@ class Createcours extends Component {
               <div className="form-group">
                 <label htmlFor="nbrOnglet">Nombre d'onglet</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="nbrOnglet"
                   placeholder="nombre d'onglet"
@@ -66,18 +68,18 @@ class Createcours extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary" id="buttonClicked">
                 Créer
               </button>
             </form>
             <div className="text-center text-danger">
-              {this.state.buttonClicked && coursExist ? (
+              {this.state.buttonClicked && coursExist !==null ? (
                 <p>{coursExist}</p>
               ) : null}
             </div>
           </div>
         </div>
-        {this.state.buttonClicked && coursExist === null
+        {coursExist === null && this.state.buttonClicked
           ? this.showOnglets(this.state.nbrOnglet)
           : null}
       </div>

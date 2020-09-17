@@ -69,7 +69,7 @@ class createChap extends Component {
       return null;
     }
     this.props.CreateChap(this.state, this.props.nomCours);
-    this.props.closeModal(this.state.contenu);
+    this.props.showPdf(this.state.contenu, this.state.titre);
   };
 
   generateCheckBox = ({ tags, auth }) => {
@@ -98,6 +98,7 @@ class createChap extends Component {
   };
 
   render() {
+    console.log(this.props.show)
     return (
       <Modal
         dialogClassName={styles["modal-90w"]}

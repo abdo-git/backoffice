@@ -45,7 +45,7 @@ export const AddTag = (tag) => {
           dispatch({ type: "ERROR", err });
         });
     } else {
-      alert("already exist !")
+      alert("already exist !");
     }
   };
 };

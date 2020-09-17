@@ -3,7 +3,7 @@ const initState = {
     {
       idOnglet: "",
       nom: "",
-      idCours:''
+      idCours: "",
     },
   ],
 };

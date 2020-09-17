@@ -41,6 +41,7 @@ function getOnglets(firestore, idCours, chaps) {
     firestore
       .collection("onglet")
       .where("idCours", "==", idCours)
+      .orderBy("idOnglet")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) => {
@@ -59,7 +60,6 @@ function getOnglets(firestore, idCours, chaps) {
 
 export const generateFile = (cours) => {
   return async (dispatch, getState, { getFirebase }) => {
-    console.log(getState());
     const firestore = getFirebase().firestore();
     const chaps = await getChapitres(firestore, cours.id);
     const onglet = await getOnglets(firestore, cours.id, chaps);

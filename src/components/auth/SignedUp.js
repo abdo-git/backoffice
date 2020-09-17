@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/actions/authAction";
+import styles from "./Auth.module.css";
 
 export class signedUp extends Component {
   state = {
@@ -9,7 +10,7 @@ export class signedUp extends Component {
     email: "",
     password: "",
     verifyPassword: false,
-    signUpClicked: false
+    signUpClicked: false,
   };
 
   handleChange = (e) => {
@@ -34,62 +35,69 @@ export class signedUp extends Component {
     }
     this.setState({
       ...this.state,
-      signUpClicked: true
-   })
+      signUpClicked: true,
+    });
     this.props.signUp(this.state);
     if (this.props.signupError !== null) window.location = "/signin";
   };
   render() {
     let { signupError } = this.props;
     return (
-      <div className="container">
-        <form onSubmit={this.handleSubmit}>
+      <div className={styles.content}>
+        <form className={styles.formUp} onSubmit={this.handleSubmit}>
+          <h2 className="text-center">
+            <strong>Create</strong> an account
+          </h2>
           <div className="form-group input-group">
             <input
               id="fullName"
-              className="form-control"
+              className={`form-control ${styles.formControl}`}
               placeholder="Full name"
               type="text"
-              required
               onChange={this.handleChange}
+              required
             />
           </div>
           <div className="form-group input-group">
             <input
               id="email"
-              className="form-control"
-              placeholder="Email address"
+              className={`form-control ${styles.formControl}`}
+              placeholder="Email"
               type="email"
-              required
               onChange={this.handleChange}
+              required
             />
           </div>
           <div className="form-group input-group">
             <input
-              className="form-control"
-              placeholder="Create password"
+              className={`form-control ${styles.formControl}`}
+              placeholder="Password"
               type="password"
               id="password"
-              required
               onChange={this.handleChange}
+              required
             />
           </div>
           <div className="form-group input-group">
             <input
-              className="form-control"
-              placeholder="Repeat password"
+              className={`form-control ${styles.formControl}`}
+              placeholder="Password (repeat)"
               type="password"
-              required
               onChange={this.verifyPassword}
+              required
             />
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary btn-block">
-              Create Account
+            <button
+              type="submit"
+              className={`btn btn-primary btn-block ${styles.btnPrimary}`}
+            >
+              Sign Up
             </button>
-            <div className="text-center text-danger">
-              {this.state.signUpClicked && signupError ? <p>{signupError}</p>
-                : null}
+            <div className={styles.error}>
+              {this.state.signUpClicked && signupError ? (
+                <p>{signupError}</p>
+              ) : null}
             </div>
           </div>
         </form>
@@ -99,7 +107,6 @@ export class signedUp extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     signupError: state.auth.signupError,

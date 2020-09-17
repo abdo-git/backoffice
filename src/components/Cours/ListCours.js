@@ -19,11 +19,10 @@ const ListCours = ({ cours, auth, generateFile }) => {
     coursFilter.filter((cours) => {
       return cours.nomCours.indexOf(search) !== -1;
     });
-
   return (
-    <div className="container">
+    <div style={{ padding: "40px" }}>
       <div className="card">
-        <h5 className="card-header">Liste des cours</h5>
+        <h5 className="card-header text-center">Liste des cours</h5>
         <div className="card-body">
           <input
             type="text"
@@ -32,79 +31,94 @@ const ListCours = ({ cours, auth, generateFile }) => {
             placeholder="search"
             onChange={(e) => setSearch(e.target.value.substr(0, 20))}
           />
-          <table className="table table-hover">
-            <thead className="thead-light">
-              <tr>
-                <th scope="col">Cours</th>
-                <th scope="col">Nombre d'onglet</th>
-                <th scope="col">Date de creation</th>
-                <th scope="col">Info</th>
-                <th scope="col">APK</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredCours &&
-                filteredCours.map((cours) => {
-                  return (
-                    <tr key={cours.id} id={cours.id}>
-                      <th scope="row">{cours.nomCours}</th>
-                      <td>{cours.nbrOnglet}</td>
-                      <td>{moment(cours.date.toDate()).calendar()}</td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-link"
-                          onClick={() => setDeatils(true)}
-                        >
-                          Details
-                        </button>
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-primary btn-sm"
-                          onClick={() => generateFile(cours)}
-                        >
-                          <i className="fa fa-download" aria-hidden="true"></i>
-                          Download
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-danger btn-sm"
-                          data-toggle="modal"
-                          data-target="#exampleModal"
-                          onClick={() => {
-                            setCoursDelete(cours);
-                            setRemove(true);
-                          }}
-                        >
-                          <i className="fa fa-trash" aria-hidden="true"></i>
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+          <div className="table-responsive-sm">
+            <table className="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col" className="text-center">
+                    Cours
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nombre d'onglet
+                  </th>
+                  <th scope="col" className="text-center">
+                    Date de creation
+                  </th>
+                  <th scope="col" className="text-center">
+                    Info
+                  </th>
+                  <th scope="col" className="text-center">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredCours &&
+                  filteredCours.map((cours) => {
+                    return (
+                      <tr key={cours.id} id={cours.id}>
+                        <th scope="row">{cours.nomCours}</th>
+                        <td>{cours.nbrOnglet}</td>
+                        <td>{moment(cours.date.toDate()).calendar()}</td>
+                        <td>
+                          <button
+                            type="button"
+                            className="btn btn-link"
+                            onClick={() => setDeatils(true)}
+                          >
+                            Details
+                          </button>
+                        </td>
+                        <td className="d-flex justify-content-sm-around flex-wrap">
+                          <button
+                            className="btn btn-outline-info btn-sm"
+                            onClick={() => generateFile(cours)}
+                          >
+                            <i
+                              className="fas fa-download"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn btn-outline-danger btn-sm"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                            onClick={() => {
+                              setCoursDelete(cours);
+                              setRemove(true);
+                            }}
+                          >
+                            <i
+                              className="far fa-trash-alt"
+                              aria-hidden="true"
+                            ></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
+        {remove ? (
+          <ModalConfirm
+            show={remove}
+            closeModal={() => {
+              setRemove(false);
+            }}
+            type={"cours"}
+            cours={coursDelete}
+          />
+        ) : null}
+        {details ? <DetailsCours cours={coursFilter} /> : null}
       </div>
-      {remove ? (
-        <ModalConfirm
-          show={remove}
-          closeModal={() => {
-            setRemove(false);
-          }}
-          type={"cours"}
-          cours={coursDelete}
-        />
-      ) : null}
-      {details ? <DetailsCours cours={coursFilter} /> : null}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  console.log(state.firestore.ordered.cours);
   return {
     cours: state.firestore.ordered.cours,
     auth: state.firebase.auth,

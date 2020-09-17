@@ -5,6 +5,7 @@ import { CreateCours } from "../../store/actions/coursAction";
 import { Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
+import styles from "./CreateCours.module.css";
 
 class Createcours extends Component {
   state = {
@@ -21,11 +22,13 @@ class Createcours extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ buttonClicked: true });
     this.props.CreateCours(this.state, this.props.cours);
+    this.setState({ buttonClicked: true });
   };
 
   showOnglets = (nbrOnglet) => {
+    let button = document.getElementById("buttonClicked");
+    button.disabled = true;
     let onglets = [];
     for (let i = 1; i <= nbrOnglet; i++) {
       onglets.push(<Onglet key={i} nomCours={this.state.nomCours} id={i} />);
@@ -35,11 +38,12 @@ class Createcours extends Component {
 
   render() {
     if (!this.props.auth.uid) return <Redirect to="/signin" />;
+
     const { coursExist } = this.props;
     return (
-      <div className="container">
-        <div className="card border-secondary mb-3">
-          <h5 className="card-header">Créer un nouveau cours</h5>
+      <div className={`container ${styles.content}`}>
+        <div className="card">
+          <h3 className="text-center card-header">Créer un nouveau cours</h3>
           <div className="card-body">
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
@@ -56,7 +60,7 @@ class Createcours extends Component {
               <div className="form-group">
                 <label htmlFor="nbrOnglet">Nombre d'onglet</label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="nbrOnglet"
                   placeholder="nombre d'onglet"
@@ -64,18 +68,22 @@ class Createcours extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                id="buttonClicked"
+              >
                 Créer
               </button>
             </form>
             <div className="text-center text-danger">
-              {this.state.buttonClicked && coursExist ? (
+              {this.state.buttonClicked && coursExist !== null ? (
                 <p>{coursExist}</p>
               ) : null}
             </div>
           </div>
         </div>
-        {this.state.buttonClicked && coursExist === null
+        {coursExist === null && this.state.buttonClicked
           ? this.showOnglets(this.state.nbrOnglet)
           : null}
       </div>
@@ -84,7 +92,6 @@ class Createcours extends Component {
 }
 
 const mapPropsToState = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     cours: state.firestore.ordered.cours,

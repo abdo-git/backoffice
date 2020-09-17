@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import { connect } from "react-redux";
+import styles from "./NavBar.module.css";
 
 const NavBar = (props) => {
   const { auth } = props;
 
   const links = auth.uid ? <SignedInLinks /> : <SignedOutLinks />;
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-dark">
-      <Link to="/" className="navbar-brand">
+    <nav
+      className={`navbar navbar-light navbar-expand-md ${styles["navigation-clean-button"]}`}
+    >
+      <Link to="/" className={`navbar-brand ${styles.navbarBrand}`}>
         Home
       </Link>
       <button

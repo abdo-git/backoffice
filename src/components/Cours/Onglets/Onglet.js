@@ -81,9 +81,8 @@ class Onglet extends Component {
   };
 
   handleSubmit = (e) => {
-    console.log(e.target);
     e.preventDefault();
-    console.log(e.target);
+
     if (this.state.nomOnglet === "") {
       alert("champ vide !");
       return null;
@@ -99,7 +98,6 @@ class Onglet extends Component {
   };
 
   render() {
-    const { exist } = this.props;
     const id = "Onglet" + this.props.id;
     return (
       <div key={this.props.id} className="card border-secondary mb-3">
@@ -122,7 +120,7 @@ class Onglet extends Component {
             <button
               id={id}
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-outline-primary"
               onClick={this.handleSubmit}
             >
               Ajouter Onglet
@@ -130,7 +128,7 @@ class Onglet extends Component {
             {this.state.addOnglet ? (
               <button
                 type="submit"
-                className="btn btn-primary float-right"
+                className="btn btn-outline-primary float-right"
                 onClick={this.showModal}
               >
                 Ajouter Chapitre

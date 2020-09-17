@@ -33,7 +33,7 @@ export const CreateOnglet = (onglet, nomCours) => {
     const firestore = getFirebase().firestore();
     const id = await idCours(nomCours, firestore);
     const exist = await ongletAlreadyExist(getState, id, onglet.nomOnglet);
-    console.log(onglet, id);
+
     if (!exist) {
       firestore
         .collection("onglet")

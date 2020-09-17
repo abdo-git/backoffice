@@ -61,6 +61,7 @@ class Createcours extends Component {
                 <label htmlFor="nbrOnglet">Nombre d'onglet</label>
                 <input
                   type="number"
+                  min="0"
                   className="form-control"
                   id="nbrOnglet"
                   placeholder="nombre d'onglet"
@@ -70,7 +71,7 @@ class Createcours extends Component {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-outline-primary"
                 id="buttonClicked"
               >
                 Créer

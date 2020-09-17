@@ -74,11 +74,11 @@ export const generateFile = (cours) => {
     var a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
-    var json = JSON.stringify(file),
-      blob = new Blob([json], { type: "octet/stream" }),
+    var json = JSON.stringify(file, null, 2),
+      blob = new Blob([json], { type: "application/json" }),
       url = window.URL.createObjectURL(blob);
     a.href = url;
-    a.download = cours.nomCours + ".json";
+    a.download = "Data.json";
     a.click();
     window.URL.revokeObjectURL(url);
   };

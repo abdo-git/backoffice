@@ -98,7 +98,6 @@ class createChap extends Component {
   };
 
   render() {
-    console.log(this.props.show);
     return (
       <Modal
         dialogClassName={styles["modal-90w"]}
@@ -134,6 +133,7 @@ class createChap extends Component {
                 </div>
                 <input
                   type="number"
+                  min="0"
                   className="form-control"
                   id="volumeHoraire"
                   placeholder="volume horaire"
@@ -189,7 +189,7 @@ class createChap extends Component {
         <Modal.Footer>
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-outline-primary"
             onClick={this.handleSubmit}
           >
             Créer

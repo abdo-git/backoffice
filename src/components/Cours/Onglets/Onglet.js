@@ -64,7 +64,7 @@ class Onglet extends Component {
         id={titre}
         onClick={this.showModalPdf}
       >
-        <i id={titre} className="far fa-file-pdf fa-2x"></i>
+        <i id={titre} className="far fa-file-pdf fa-1.5x"></i>
       </button>
     );
     this.setState({

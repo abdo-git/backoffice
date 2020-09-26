@@ -3,6 +3,8 @@ import { Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { DeleteCours } from "../../store/actions/coursAction";
 import { DeleteTag } from "../../store/actions/tagAction";
+import { DeleteOnglet } from "../../store/actions/ongletAction";
+
 
 class ModalConfirm extends Component {
   handleClick = () => {
@@ -11,6 +13,7 @@ class ModalConfirm extends Component {
       this.props.deleteCours(this.props.cours);
     }
     if (this.props.type === "tag") this.props.deleteTag(this.props.tag);
+    if (this.props.type === "onglet") this.props.deleteOnglet(this.props.idOnglet, this.props.idCours);
 
     this.props.closeModal();
   };
@@ -52,6 +55,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteCours: (cours) => dispatch(DeleteCours(cours)),
     deleteTag: (tag) => dispatch(DeleteTag(tag)),
+    deleteOnglet : (idOnglet, idCours)=> dispatch(DeleteOnglet(idOnglet, idCours))
   };
 };
 export default connect(null, mapDispatchToProps)(ModalConfirm);

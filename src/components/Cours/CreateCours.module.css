@@ -1,3 +1,22 @@
 .content {
   padding-top: 40px;
 }
+
+.nomOnglet {
+  display: inline-block;
+  width: 210px;
+  height: 30px;
+  padding: 4px;
+  margin-bottom: 9px;
+}
+
+.btnPrimary {
+  margin-bottom: 0;
+  padding: 2px 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.faPdf{
+  font-size: 1.5em;
+}

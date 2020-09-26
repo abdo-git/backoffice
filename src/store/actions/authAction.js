@@ -44,7 +44,7 @@ export const signUp = (prof) => {
             firebase
               .auth()
               .signOut()
-              .then(() => console.log("signout"));
+              .then(() => window.location = "/signin");
           });
       })
       .catch((err) => {

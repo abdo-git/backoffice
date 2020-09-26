@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
 import { signUp } from "../../store/actions/authAction";
 import styles from "./Auth.module.css";
 
@@ -38,7 +37,7 @@ export class signedUp extends Component {
       signUpClicked: true,
     });
     this.props.signUp(this.state);
-    if (this.props.signupError !== null) window.location = "/signin";
+    //if (this.props.signupError !== null) 
   };
   render() {
     let { signupError } = this.props;

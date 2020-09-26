@@ -1,12 +1,11 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
+import MathJax from "react-mathjax-preview";
 import styles from "./modal.module.css";
 
 // Create styles
 
 const chapPDF = (props) => {
-  console.log(props.titre);
-  console.log(props.contentChap);
   var index = props.contentChap.findIndex((chap) => chap.titre === props.titre);
   var content = props.contentChap[index].content;
   return (
@@ -20,7 +19,7 @@ const chapPDF = (props) => {
         <Modal.Title className="text-center">{props.titre}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div dangerouslySetInnerHTML={{ __html: content }}></div>
+        <MathJax math={content} />
       </Modal.Body>
     </Modal>
   );

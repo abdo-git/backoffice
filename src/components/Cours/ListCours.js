@@ -10,7 +10,7 @@ import ModalConfirm from "./ModalConfirm";
 
 const ListCours = ({ cours, auth, generateFile }) => {
   const [search, setSearch] = useState("");
-  const [details, setDeatils] = useState(false);
+  const [coursDetail, setCoursDetail] = useState(null);
   const [remove, setRemove] = useState(false);
   const [coursDelete, setCoursDelete] = useState(null);
   const coursFilter = cours && cours.filter((cour) => cour.idProf === auth.uid);
@@ -64,7 +64,7 @@ const ListCours = ({ cours, auth, generateFile }) => {
                           <button
                             type="button"
                             className="btn btn-link"
-                            onClick={() => setDeatils(true)}
+                            onClick={() => setCoursDetail(cours)}
                           >
                             Details
                           </button>
@@ -112,7 +112,7 @@ const ListCours = ({ cours, auth, generateFile }) => {
             cours={coursDelete}
           />
         ) : null}
-        {details ? <DetailsCours cours={coursFilter} /> : null}
+        {coursDetail ? <DetailsCours coursDetail={coursDetail} /> : null}
       </div>
     </div>
   );

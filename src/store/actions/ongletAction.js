@@ -1,10 +1,11 @@
 
 
-function idCours(nomCours, firestore) {
+function idCours(nomCours, idProf,firestore) {
   return new Promise((resolve) => {
     firestore
       .collection("cours")
       .where("nomCours", "==", nomCours)
+      .where("idProf", "==",idProf)
       .limit(1)
       .get()
       .then((snapshot) => {
@@ -33,8 +34,9 @@ function ongletAlreadyExist(getState, idCours, nomOnglet) {
 ///Add Onglet
 export const CreateOnglet = (onglet, nomCours) => {
   return async (dispatch, getState, { getFirebase }) => {
+    console.log(getState())
     const firestore = getFirebase().firestore();
-    const id = await idCours(nomCours, firestore);
+    const id = await idCours(nomCours, getState().firebase.auth.uid, firestore);
     const exist = await ongletAlreadyExist(getState, id, onglet.nomOnglet);
 
     if (!exist) {

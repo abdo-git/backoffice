@@ -15,6 +15,9 @@ const chapReducer = (state = initState, action) => {
     case 'ADD_CHAP':
       console.log('chapitre ajoute',action.chap)
       break;
+    case 'DELETE_CHAP':
+      console.log("chapitre supprimer")
+      break;
     default:
       break;
   }

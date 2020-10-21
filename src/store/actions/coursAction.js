@@ -77,7 +77,8 @@ export const CreateCours = (cours, listCours) => {
       firestore
         .collection("cours")
         .add({
-          ...cours,
+          nomCours: cours.nomCours,
+          nbrOnglet: cours.nbrOnglet,
           idProf: idProf,
           date: new Date(),
         })

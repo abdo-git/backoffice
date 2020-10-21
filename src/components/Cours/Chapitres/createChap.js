@@ -69,8 +69,10 @@ class createChap extends Component {
       return null;
     }
     this.props.CreateChap(this.state, this.props.nomCours);
-    this.props.showPdf(this.state.contenu, this.state.titre);
-  };
+    if(this.props.showPdf !== null)
+      this.props.showPdf(this.state.contenu, this.state.titre);
+    this.props.closeModal()
+    };
 
   generateCheckBox = ({ tags, auth }) => {
     let tagsRendered = [];
@@ -112,11 +114,11 @@ class createChap extends Component {
         </Modal.Header>
 
         <Modal.Body>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <div className="row">
               <div className="input-group col-md-4">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">Titre du chapitre</span>
+                <div className="input-group-prepend">
+                  <span className="input-group-text">Titre du chapitre</span>
                 </div>
                 <input
                   className="form-control"

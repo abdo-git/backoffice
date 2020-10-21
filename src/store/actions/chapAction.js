@@ -1,8 +1,9 @@
-function idCours(nomCours, firestore) {
+function idCours(nomCours, idProf,firestore) {
   return new Promise((resolve) => {
     firestore
       .collection("cours")
       .where("nomCours", "==", nomCours)
+      .where("idProf", "==",idProf)
       .limit(1)
       .get()
       .then((snapshot) => {
@@ -16,7 +17,7 @@ function idCours(nomCours, firestore) {
 export const CreateChap = (chap, nomCours) => {
   return async (dispatch, getState, { getFirebase }) => {
     const firestore = getFirebase().firestore();
-    const id = await idCours(nomCours, firestore)
+    const id = await idCours(nomCours, getState().firebase.auth.uid, firestore)
     firestore
       .collection("chapitre")
       .add({
@@ -31,3 +32,19 @@ export const CreateChap = (chap, nomCours) => {
       });
   };
 };
+
+export const DeleteChap = (idChap)=>{
+  return (dispatch, getState, {getFirebase})=>{
+    const firestore = getFirebase().firestore()
+    firestore
+        .collection("chapitre")
+        .doc(idChap)
+        .delete()
+        .then(() => {
+          dispatch({ type: "DELETE_CHAP"});
+        })
+        .catch((err) => {
+          dispatch({ type: "ERROR", err });
+        });
+  }
+}

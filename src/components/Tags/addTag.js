@@ -51,7 +51,7 @@ class addTag extends Component {
                   });
                 }}
               >
-                <i class="far fa-trash-alt"></i>
+                <i className="far fa-trash-alt"></i>
               </button>
             </li>
           );

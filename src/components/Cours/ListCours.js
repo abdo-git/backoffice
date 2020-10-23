@@ -20,7 +20,7 @@ const ListCours = ({ cours, auth, generateFile }) => {
       return cours.nomCours.indexOf(search) !== -1;
     });
   return (
-    <div style={{ padding: "40px" }}>
+    <div className="container" style={{ padding: "40px" }}>
       <div className="card">
         <h5 className="card-header text-center">Liste des cours</h5>
         <div className="card-body">
@@ -112,8 +112,8 @@ const ListCours = ({ cours, auth, generateFile }) => {
             cours={coursDelete}
           />
         ) : null}
-        {coursDetail ? <DetailsCours coursDetail={coursDetail} /> : null}
       </div>
+        {coursDetail ? <DetailsCours coursDetail={coursDetail} /> : null}
     </div>
   );
 };

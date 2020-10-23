@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
 import ModalConfirm from "../ModalConfirm";
+import UpdateChap from "./updateChap";
+import styles from "./modal.module.css";
+import MathJax from "react-mathjax-preview";
 
 class crudChap extends Component {
   state = {
@@ -9,8 +12,7 @@ class crudChap extends Component {
     delete: false,
   };
   render() {
-    const { show, closeModal, chapitre } = this.props;
-    console.log(chapitre);
+    const { idOnglet, show, closeModal, chapitre } = this.props;
     return (
       <div>
         <Modal show={show} onHide={closeModal}>
@@ -47,12 +49,37 @@ class crudChap extends Component {
             </button>
           </Modal.Body>
         </Modal>
+        {this.state.open ? (
+          <Modal
+            dialogClassName={styles["modal-90w"]}
+            show={this.state.open}
+            backdrop="static"
+            onHide={() => this.setState({ ...this.state, open: false })}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title className="text-center">{chapitre.titre}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <MathJax math={chapitre.contenu} />
+            </Modal.Body>
+          </Modal>
+        ) : null}
         {this.state.delete ? (
           <ModalConfirm
             show={this.state.delete}
             closeModal={() => this.setState({ ...this.state, delete: false })}
+            closeModalParent={closeModal}
             idChap={chapitre.id}
             type={"chapitre"}
+          />
+        ) : null}
+        {this.state.edit ? (
+          <UpdateChap
+            chap={chapitre}
+            show={this.state.edit}
+            closeModal={() => this.setState({ ...this.state, edit: false })}
+            closeModalParent={closeModal}
+            idOnglet={idOnglet}
           />
         ) : null}
       </div>

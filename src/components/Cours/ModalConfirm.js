@@ -13,8 +13,10 @@ class ModalConfirm extends Component {
     if (this.props.type === "onglet")
       this.props.deleteOnglet(this.props.idOnglet, this.props.idCours);
     if (this.props.type === "chapitre")
+    {
       this.props.deleteChap(this.props.idChap);
-
+      this.props.closeModalParent()
+    }
     this.props.closeModal();
   };
   render() {

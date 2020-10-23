@@ -223,6 +223,7 @@ class DetailsCours extends Component {
                 })
               }
               chapitre={this.state.chapitre}
+              idOnglet={this.state.ongletActive}
             />
           ) : null}
         </div>

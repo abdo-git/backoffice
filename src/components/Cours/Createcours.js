@@ -55,6 +55,7 @@ class Createcours extends Component {
                   placeholder="intitulé du cours"
                   required
                   onChange={this.handleChange}
+                  style={{ width: "50%" }}
                 />
               </div>
               <div className="form-group">
@@ -67,6 +68,7 @@ class Createcours extends Component {
                   placeholder="nombre d'onglet"
                   required
                   onChange={this.handleChange}
+                  style={{ width: "50%" }}
                 />
               </div>
               <button

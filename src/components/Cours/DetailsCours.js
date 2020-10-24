@@ -34,7 +34,7 @@ class DetailsCours extends Component {
       button.push(
         <button
           type="button"
-          className="btn btn-outline-info"
+          className={`btn btn-outline-info ${styles.chap}`}
           key={chap.id}
           id={chap.id}
           onClick={(e) =>
@@ -96,7 +96,7 @@ class DetailsCours extends Component {
       const HashMap = this.map(ongletFiltered.length, chapFiltered);
 
       return (
-        <div className="card">
+        <div className={`card ${styles.detailsCours}`}>
           <h5 className="card-header">Détail du cours</h5>
           <div className="card-body">
             <form

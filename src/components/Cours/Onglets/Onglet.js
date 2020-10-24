@@ -100,7 +100,11 @@ class Onglet extends Component {
   render() {
     const id = "Onglet" + this.props.id;
     return (
-      <div key={this.props.id} className="card border-secondary mb-3">
+      <div
+        key={this.props.id}
+        className="card mb-3"
+        style={{ marginTop: "10px" }}
+      >
         <h5 className="card-header">Onglet {this.props.id}</h5>
         <div className="card-body">
           <form>
@@ -113,6 +117,7 @@ class Onglet extends Component {
                 placeholder="nom onlget"
                 required
                 onChange={this.handleChange}
+                style={{ width: "50%" }}
               />
             </div>
             <div>{this.state.chapitre}</div>

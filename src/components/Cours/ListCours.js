@@ -27,9 +27,10 @@ const ListCours = ({ cours, auth, generateFile }) => {
           <input
             type="text"
             value={search}
-            className="form-control"
+            className="form-control float-right"
             placeholder="search"
             onChange={(e) => setSearch(e.target.value.substr(0, 20))}
+            style={{ width: "32%",marginBottom: "8px" }}
           />
           <div className="table-responsive-sm">
             <table className="table table-hover table-bordered">

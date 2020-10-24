@@ -4,14 +4,15 @@
 
 .nomOnglet {
   display: inline-block;
-  width: 210px;
+  width: 250px;
   height: 30px;
-  padding: 4px;
+  padding: 10px;
   margin-bottom: 9px;
 }
 
 .btnPrimary {
-  margin-bottom: 0;
+  margin-left: 5px;
+  margin-bottom: 4px;
   padding: 2px 12px;
   text-align: center;
   vertical-align: middle;
@@ -19,4 +20,18 @@
 
 .faPdf{
   font-size: 1.5em;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-right: 5px;
+}
+
+.detailsCours{
+  margin-top: 40px;
+}
+
+.chap{
+  margin-top: 10px;
+  margin-left: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }

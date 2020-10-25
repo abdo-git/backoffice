@@ -1,2 +1,162 @@
-.NavBar_navigation-clean-button__1NT-Z{background:#fff;padding-left:1.5rem;padding-right:1.5rem;color:#333;border-radius:0;box-shadow:0 6px 6px -6px #999;border:none;margin-bottom:0}.NavBar_navigation-clean-button__1NT-Z .NavBar_navbarBrand__18xaf{font-weight:700;color:inherit}.NavBar_navigation-clean-button__1NT-Z .NavBar_actions__3cM_G .NavBar_login__3SjXV{margin-right:1rem;text-decoration:none;color:#465765}.NavBar_navigation-clean-button__1NT-Z .NavBar_txt__2TnRy .NavBar_action-button__z-yBG,.NavBar_navigation-clean-button__1NT-Z .NavBar_txt__2TnRy .NavBar_action-button__z-yBG:active,.NavBar_navigation-clean-button__1NT-Z .NavBar_txt__2TnRy .NavBar_action-button__z-yBG:hover{background:#009387;border-radius:20px;color:#fff;box-shadow:none;border:none;text-shadow:none;padding:.5rem 1rem;transition:background-color .25s;font-size:inherit}.modal_modal-90w__5edCL{max-width:100%;width:95%}.modal_editor__k5Del{max-height:150px;height:150px}.modal_tgs__1JKhR{padding:15px 20px;max-width:90%;width:100%}.modal_ck-editor__editable_inline__3vaZQ{min-height:400px}.CreateCours_content__186iO{padding-top:40px}.Tags_content__2bV0M{padding:40px 0}.Tags_content__2bV0M h3{font-weight:700;padding-bottom:10px}.Tags_content__2bV0M .Tags_listTag__3GzvY{max-width:600px;width:90%;margin:auto}.Tags_content__2bV0M li{font-weight:700;font-size:larger}.Tags_btnPrimary__AJJxG{color:#009387;border-color:#009387}.Tags_btnPrimary__AJJxG:hover{background-color:#fff;color:red;border-color:red}.Tags_inpGrp__1tQ8v{margin-bottom:5px}.Tags_inpGrp__1tQ8v .Tags_btnPrimary__AJJxG{background:#fff}.Tags_inpGrp__1tQ8v .Tags_btnPrimary__AJJxG:hover{background-color:#fff;color:grey;border-color:grey}ul{max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch}.Auth_content__1ts8S{padding:80px 0}.Auth_content__1ts8S form{width:90%;margin:0 auto;background-color:#fff;padding:40px;border-radius:4px;color:#505e6c;box-shadow:1px 1px 5px rgba(0,0,0,.1)}.Auth_content__1ts8S .Auth_formIn__2scnR{max-width:320px}.Auth_content__1ts8S .Auth_formUp__1fIX6{max-width:400px}.Auth_content__1ts8S .Auth_illustration__3bqUP{text-align:center;padding:0 0 20px;font-size:80px;font-weight:700;color:#009387}.Auth_content__1ts8S form .Auth_formControl__3_p4B{background:#f7f9fc;border:none;border-bottom:1px solid #dfe7f1;border-radius:0;box-shadow:none;outline:none;color:inherit;text-indent:8px;height:42px}.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj{background:#009387;border:none;border-radius:4px;padding:11px;box-shadow:none;margin-top:26px;text-shadow:none;outline:none!important}.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj:active,.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj:hover{background:#009387}.Auth_content__1ts8S form .Auth_error___ehqt{display:block;text-align:center;font-size:15px;color:red;padding-top:6px;text-decoration:none}.Auth_content__1ts8S form h2{font-size:24px;line-height:1.5;margin-bottom:30px}
+.NavBar_navigation-clean-button__1NT-Z {
+  background: #fff;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  color: #333;
+  border-radius: 0;
+  box-shadow: 0 6px 6px -6px #999;
+  border: none;
+  margin-bottom: 0;
+}
+.NavBar_navigation-clean-button__1NT-Z .NavBar_navbarBrand__18xaf {
+  font-weight: 700;
+  color: inherit;
+}
+.NavBar_navigation-clean-button__1NT-Z
+  .NavBar_actions__3cM_G
+  .NavBar_login__3SjXV {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #465765;
+}
+.NavBar_navigation-clean-button__1NT-Z
+  .NavBar_txt__2TnRy
+  .NavBar_action-button__z-yBG,
+.NavBar_navigation-clean-button__1NT-Z
+  .NavBar_txt__2TnRy
+  .NavBar_action-button__z-yBG:active,
+.NavBar_navigation-clean-button__1NT-Z
+  .NavBar_txt__2TnRy
+  .NavBar_action-button__z-yBG:hover {
+  background: #009387;
+  border-radius: 20px;
+  color: #fff;
+  box-shadow: none;
+  border: none;
+  text-shadow: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.25s;
+  font-size: inherit;
+}
+.modal_modal-90w__5edCL {
+  max-width: 100%;
+  width: 95%;
+}
+.modal_editor__k5Del {
+  max-height: 150px;
+  height: 150px;
+}
+.modal_tgs__1JKhR {
+  padding: 15px 20px;
+  max-width: 90%;
+  width: 100%;
+}
+.modal_ck-editor__editable_inline__3vaZQ {
+  min-height: 400px;
+}
+.CreateCours_content__186iO {
+  padding-top: 40px;
+}
+.Tags_content__2bV0M {
+  padding: 40px 0;
+}
+.Tags_content__2bV0M h3 {
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+.Tags_content__2bV0M .Tags_listTag__3GzvY {
+  max-width: 600px;
+  width: 90%;
+  margin: auto;
+}
+.Tags_content__2bV0M li {
+  font-weight: 700;
+  font-size: larger;
+}
+.Tags_btnPrimary__AJJxG {
+  color: #009387;
+  border-color: #009387;
+}
+.Tags_btnPrimary__AJJxG:hover {
+  background-color: #fff;
+  color: red;
+  border-color: red;
+}
+.Tags_inpGrp__1tQ8v {
+  margin-bottom: 5px;
+}
+.Tags_inpGrp__1tQ8v .Tags_btnPrimary__AJJxG {
+  background: #fff;
+}
+.Tags_inpGrp__1tQ8v .Tags_btnPrimary__AJJxG:hover {
+  background-color: #fff;
+  color: grey;
+  border-color: grey;
+}
+ul {
+  max-height: 300px;
+}
+.Auth_content__1ts8S {
+  padding: 80px 0;
+}
+.Auth_content__1ts8S form {
+  width: 90%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 4px;
+  color: #505e6c;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+}
+.Auth_content__1ts8S .Auth_formIn__2scnR {
+  max-width: 320px;
+}
+.Auth_content__1ts8S .Auth_formUp__1fIX6 {
+  max-width: 400px;
+}
+.Auth_content__1ts8S .Auth_illustration__3bqUP {
+  text-align: center;
+  padding: 0 0 20px;
+  font-size: 80px;
+  font-weight: 700;
+  color: #009387;
+}
+.Auth_content__1ts8S form .Auth_formControl__3_p4B {
+  background: #f7f9fc;
+  border: none;
+  border-bottom: 1px solid #dfe7f1;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  text-indent: 8px;
+  height: 42px;
+}
+.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj {
+  background: #009387;
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  margin-top: 26px;
+  text-shadow: none;
+  outline: none !important;
+}
+.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj:active,
+.Auth_content__1ts8S form .Auth_btnPrimary__2MXqj:hover {
+  background: #009387;
+}
+.Auth_content__1ts8S form .Auth_error___ehqt {
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  color: red;
+  padding-top: 6px;
+  text-decoration: none;
+}
+.Auth_content__1ts8S form h2 {
+  font-size: 24px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
 /*# sourceMappingURL=main.35ed090c.chunk.css.map */

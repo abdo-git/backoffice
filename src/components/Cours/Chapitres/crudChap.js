@@ -25,6 +25,7 @@ class crudChap extends Component {
             <button
               type="button"
               className="btn btn-outline-info"
+              style={{ marginBottom: "5px" }}
               onClick={() => this.setState({ ...this.state, open: true })}
             >
               Ouvrir
@@ -33,6 +34,7 @@ class crudChap extends Component {
             <button
               type="button"
               className="btn btn-outline-info"
+              style={{ marginBottom: "5px" }}
               onClick={() => this.setState({ ...this.state, edit: true })}
             >
               <i className="far fa-edit"></i>
@@ -42,6 +44,7 @@ class crudChap extends Component {
             <button
               type="button"
               className="btn btn-outline-danger"
+              style={{ marginBottom: "5px" }}
               onClick={() => this.setState({ ...this.state, delete: true })}
             >
               <i className="far fa-trash-alt" aria-hidden="true"></i>

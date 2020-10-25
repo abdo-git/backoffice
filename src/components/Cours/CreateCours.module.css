@@ -4,7 +4,7 @@
 
 .nomOnglet {
   display: inline-block;
-  width: 250px;
+  width: 200px;
   height: 30px;
   padding: 10px;
   margin-bottom: 9px;
@@ -18,20 +18,26 @@
   vertical-align: middle;
 }
 
-.faPdf{
+.faPdf {
   font-size: 1.5em;
   padding-top: 2px;
   padding-bottom: 2px;
   margin-right: 5px;
 }
 
-.detailsCours{
+.detailsCours {
   margin-top: 40px;
 }
 
-.chap{
+.chap {
   margin-top: 10px;
   margin-left: 5px;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+.scroll {
+  overflow-y: scroll;
+  height: 13em;
+  resize: vertical;
+  max-height: 31em;
 }

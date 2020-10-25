@@ -58,7 +58,8 @@ class DetailsCours extends Component {
       div.push(
         <div
           key={"key" + key}
-          className="tab-pane fade scroll"
+          className={`tab-pane fade ${styles.scroll}`}
+          
           id={key}
           role="tabpanel"
           aria-labelledby={key + "-tab"}
@@ -125,7 +126,7 @@ class DetailsCours extends Component {
                 </button>
               </div>
             </form>
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <ul className="nav nav-tabs">
               {ongletFiltered &&
                 ongletFiltered.map((onglet) => {
                   return (

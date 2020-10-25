@@ -1,6 +1,6 @@
 .modal-90w {
   max-width: 100%;
-  width: 95%;
+  width: 80%;
 }
 .editor {
   max-height: 150px;
@@ -13,4 +13,8 @@
 }
 .ck-editor__editable_inline {
   min-height: 400px;
+}
+
+.btn{
+  margin-bottom: 5px;
 }
